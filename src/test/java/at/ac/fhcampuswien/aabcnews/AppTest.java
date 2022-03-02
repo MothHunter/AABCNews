@@ -7,9 +7,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AppTest {
     @Test
     public void printWelcomeTest(){
+        App app = new App();
         String welcomeMassage="*****************************"+System.lineSeparator()+
                               "  *  welcome to AABCNews  *  "+System.lineSeparator()+
                               "*****************************";
-    assertEquals(welcomeMassage,App.printwelcome);
+        String text = app.printWelcome();
+    assertEquals(welcomeMassage,text);
     }
 }

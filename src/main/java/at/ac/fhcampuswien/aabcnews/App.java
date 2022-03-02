@@ -23,4 +23,10 @@ public class App /*extends Application*/ {
         //launch();
         System.out.println("Hello World!");
     }
+    public  String printWelcome() {
+        String message = "*****************************"+System.lineSeparator()+
+                "  *  welcome to AABCNews  *  "+System.lineSeparator()+
+                "*****************************";
+        return message;
+    }
 }
