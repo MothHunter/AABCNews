@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import java.util.List;
 
 public class AppController {
+    String query;
     private List<Article> articles;
 
     @FXML
@@ -18,5 +19,16 @@ public class AppController {
 
     public AppController() {
 
+
+
+
+    }
+    public void setArticles(){}
+    public void getArticleCount(){}
+    public void getTopHeadlingesAustria(){}
+    public void filterList(String query, List<Article> articles){
+    }
+
+    public void getAllNewsBitcoin() {
     }
 }
