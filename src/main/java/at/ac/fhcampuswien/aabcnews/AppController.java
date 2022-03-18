@@ -28,11 +28,16 @@ public class AppController {
 
 
     public AppController() {
+      articles = generateMockList();
 
 
     }
     public void setArticles(){}
-    public void getArticleCount(){}
+    public int getArticleCount(){
+
+
+    return articles.size();
+    }
     public void getTopHeadlinesAustria(){}
     public void filterList(String query, List<Article> articles){
     }
@@ -43,6 +48,7 @@ public class AppController {
     //TODO: write generateMockList method to create dummy list of articles
     private List<Article> generateMockList(){
         List<Article> mockList = new ArrayList<>();
+        mockList.add(new Article("Florian Bodner","Warum heute zutage gehen die Kinder gern in die Schule"));
         return mockList;
     }
 

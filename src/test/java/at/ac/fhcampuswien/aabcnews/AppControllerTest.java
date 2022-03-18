@@ -23,7 +23,7 @@ public class AppControllerTest {
             Assertions.fail("Method setArticles not found!");
         }
     }
-    //TODO: write test for getArticleCount method
+
     @Test
     public void getArticleCount() {
 
@@ -34,6 +34,8 @@ public class AppControllerTest {
             Assertions.fail("Method getArticleCount not found");
 
         }
+        assert (obj.getArticleCount()>=0);
+
     }
 
     @Test
