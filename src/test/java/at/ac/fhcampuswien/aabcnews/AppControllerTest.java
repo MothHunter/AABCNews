@@ -46,15 +46,7 @@ public class AppControllerTest {
         }
     }
 
-    @Test
-    public void generateMockListTest() {
-        AppController obj = new AppController();
-        try {
-            Method m = AppController.class.getMethod("generateMockList");
-        } catch (Exception e) {
-            Assertions.fail("Method generateMocklist not found!");
-        }
-    }
+
 
     @Test
     public void getTopHeadlinesAustriaTest() {

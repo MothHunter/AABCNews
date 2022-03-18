@@ -41,5 +41,9 @@ public class AppController {
     }
 
     //TODO: write generateMockList method to create dummy list of articles
+    private List<Article> generateMockList(){
+        List<Article> mockList = new ArrayList<>();
+        return mockList;
+    }
 
 }
