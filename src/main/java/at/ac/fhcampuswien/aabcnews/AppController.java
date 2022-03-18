@@ -49,6 +49,9 @@ public class AppController {
     private List<Article> generateMockList(){
         List<Article> mockList = new ArrayList<>();
         mockList.add(new Article("Florian Bodner","Warum heute zutage gehen die Kinder gern in die Schule"));
+        mockList.add(new Article("Lea M. Christa", "Tiger momming for the childless"));
+        mockList.add(new Article("Florian Bodner", "Why chocolate should count as a vegetable"));
+        mockList.add(new Article("M. O. Tivation", "Ich bin dann mal weg..."));
         return mockList;
     }
 
