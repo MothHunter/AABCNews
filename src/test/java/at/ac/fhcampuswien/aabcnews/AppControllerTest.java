@@ -19,9 +19,7 @@ public class AppControllerTest {
     public void setArticlesTest() {
         AppController obj = new AppController();
         try {
-            Class[] parameter =new Class[1];
-            parameter[0] = ArrayList;
-            Method m = AppController.class.getMethod("setArticles",Class );
+            Method m = AppController.class.getMethod("setArticles", List.class);
         } catch (Exception e) {
             Assertions.fail("Method setArticles not found!");
         }
@@ -29,7 +27,6 @@ public class AppControllerTest {
             obj.setArticles(new ArrayList<Article>());
         } catch (Exception e) {
             Assertions.fail("setArticles failed to accept parameter from ArrayList type");
-
         }
     }
 
