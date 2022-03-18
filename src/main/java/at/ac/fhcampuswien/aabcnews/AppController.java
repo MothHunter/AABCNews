@@ -3,6 +3,7 @@ package at.ac.fhcampuswien.aabcnews;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AppController {
@@ -32,7 +33,7 @@ public class AppController {
     }
     public void setArticles(){}
     public void getArticleCount(){}
-    public void getTopHeadlingesAustria(){}
+    public void getTopHeadlinesAustria(){}
     public void filterList(String query, List<Article> articles){
     }
 
@@ -40,4 +41,5 @@ public class AppController {
     }
 
     //TODO: write generateMockList method to create dummy list of articles
+
 }

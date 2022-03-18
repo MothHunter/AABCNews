@@ -72,7 +72,7 @@ public class AppControllerTest {
 
         AppController obj = new AppController();
         try {
-            Method m = AppController.class.getMethod("filterList");
+            Method m = AppController.class.getMethod("filterList", String.class, List.class);
         } catch (Exception e) {
             Assertions.fail("Method filterList not found");
 
