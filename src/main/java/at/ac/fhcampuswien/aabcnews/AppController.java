@@ -32,7 +32,7 @@ public class AppController {
 
 
     }
-    public void setArticles(){}
+    public void setArticles(List<Article> articles){}
     public int getArticleCount(){
 
 

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -18,9 +19,17 @@ public class AppControllerTest {
     public void setArticlesTest() {
         AppController obj = new AppController();
         try {
-            Method m = AppController.class.getMethod("setArticles");
+            Class[] parameter =new Class[1];
+            parameter[0] = ArrayList;
+            Method m = AppController.class.getMethod("setArticles",Class );
         } catch (Exception e) {
             Assertions.fail("Method setArticles not found!");
+        }
+        try {
+            obj.setArticles(new ArrayList<Article>());
+        } catch (Exception e) {
+            Assertions.fail("setArticles failed to accept parameter from ArrayList type");
+
         }
     }
 
@@ -30,11 +39,11 @@ public class AppControllerTest {
         AppController obj = new AppController();
         try {
             Method m = AppController.class.getMethod("getArticleCount");
-    } catch (Exception e) {
+        } catch (Exception e) {
             Assertions.fail("Method getArticleCount not found");
 
         }
-        assert (obj.getArticleCount()>=0);
+        assert (obj.getArticleCount() >= 0);
 
     }
 
@@ -47,7 +56,6 @@ public class AppControllerTest {
             Assertions.fail("Method setArticles not found!");
         }
     }
-
 
 
     @Test
