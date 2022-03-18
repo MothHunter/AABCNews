@@ -24,6 +24,17 @@ public class AppControllerTest {
         }
     }
     //TODO: write test for getArticleCount method
+    @Test
+    public void getArticleCount() {
+
+        AppController obj = new AppController();
+        try {
+            Method m = AppController.class.getMethod("getArticleCount");
+    } catch (Exception e) {
+            Assertions.fail("Method getArticleCount not found");
+
+        }
+    }
 
     @Test
     public void getAllNewsBitcoinTest() {
@@ -56,6 +67,17 @@ public class AppControllerTest {
     }
 
     //TODO: write test for filterList method
+    @Test
+    public void filterList() {
+
+        AppController obj = new AppController();
+        try {
+            Method m = AppController.class.getMethod("filterList");
+        } catch (Exception e) {
+            Assertions.fail("Method filterList not found");
+
+        }
+    }
 
 }
 
