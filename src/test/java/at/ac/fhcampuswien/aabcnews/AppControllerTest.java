@@ -6,11 +6,16 @@ import org.junit.jupiter.api.Assertions;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
+import org.opentest4j.AssertionFailedError;
+
+import java.lang.reflect.Method;
+
 public class AppControllerTest {
 
-
     @Test
-    public void getArticlesTest(){
+    public void setArticlesTest() {
         AppController obj = new AppController();
         try {
             Method m = AppController.class.getMethod("setArticles");
@@ -18,31 +23,39 @@ public class AppControllerTest {
             Assertions.fail("Method setArticles not found!");
         }
     }
-
-    @Test public void getAllNewsBitcoin(){ AppController obj = new AppController();
-        try{ Method m = AppController.class.getMethod("getAllNewsBitcoin"); } catch(Exception e) {Assertions.fail("Method setArticles not found!");}}
+    //TODO: write test for getArticleCount method
 
     @Test
-    private List generateMocklist(){
+    public void getAllNewsBitcoinTest() {
         AppController obj = new AppController();
         try {
-            Method m = AppController.class.getMethod("generateMocklist");
+            Method m = AppController.class.getMethod("getAllNewsBitcoin");
         } catch (Exception e) {
-            Assertions.fail("Method generateMocklist not found!");
+            Assertions.fail("Method setArticles not found!");
         }
-        return null;
     }
 
     @Test
-    public List getTopHeadlinesAustria(){
+    public void generateMockListTest() {
+        AppController obj = new AppController();
+        try {
+            Method m = AppController.class.getMethod("generateMockList");
+        } catch (Exception e) {
+            Assertions.fail("Method generateMocklist not found!");
+        }
+    }
+
+    @Test
+    public void getTopHeadlinesAustriaTest() {
         AppController obj = new AppController();
         try {
             Method m = AppController.class.getMethod("getTopHeadlinesAustria");
         } catch (Exception e) {
             Assertions.fail("Method getTopHeadlinesAustria not found!");
         }
-        return null;
     }
 
-    }
+    //TODO: write test for filterList method
+
+}
 
