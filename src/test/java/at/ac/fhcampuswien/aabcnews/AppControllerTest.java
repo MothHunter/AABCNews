@@ -67,11 +67,24 @@ public class AppControllerTest {
 
     //TODO: write test for filterList method
     @Test
-    public void filterList() {
+    public void filterListTest() {
 
-        AppController obj = new AppController();
+        AppController appController = new AppController();
+        List<Article> articles = new ArrayList<>();
+        articles.add(new Article("A", "This is a1"));
+        articles.add(new Article("B", "This is b1"));
+        articles.add(new Article("C", "These are c1"));
+        articles.add(new Article("D", "These are d1"));
         try {
             Method m = AppController.class.getMethod("filterList", String.class, List.class);
+            List<Article> actualList = appController.filterList("this", articles);
+
+            Assertions.assertEquals(2, actualList.size());
+            Assertions.assertEquals("A", actualList.get(0).getAuthor());
+            Assertions.assertEquals("B", actualList.get(1).getAuthor());
+            Assertions.assertEquals("This is a1", actualList.get(0).getTitle());
+            Assertions.assertEquals("This is b1", actualList.get(1).getTitle());
+
         } catch (Exception e) {
             Assertions.fail("Method filterList not found");
 

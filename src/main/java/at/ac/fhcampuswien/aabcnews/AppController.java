@@ -1,10 +1,13 @@
 package at.ac.fhcampuswien.aabcnews;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AppController {
     String query;
@@ -12,6 +15,9 @@ public class AppController {
 
     @FXML
     private Label welcomeText;
+
+    @FXML
+    private Button quitButton;
 
     //TODO: 1. replace "onHelloButtonClick" with "onGetNewsButtonClick" method
     //         Name must also be changed in menu-view.xml for the "onAction" property of the button
@@ -24,22 +30,31 @@ public class AppController {
 
     //TODO: 1. write "onQuitButtonClick" method and add as "onAction" property in menu-view.xml
     //      2. implement functionality for the button (close program)
-
+    @FXML
+    protected void onQuitButtonClick() {
+        Stage stage = (Stage) quitButton.getScene().getWindow();
+        stage.close();
+    }
 
 
     public AppController() {
-      articles = generateMockList();
-
-
+      this.articles = generateMockList();
     }
-    public void setArticles(List<Article> articles){}
-    public int getArticleCount(){
-
-
-    return articles.size();
+    public void setArticles(List<Article> articles){
+        this.articles = articles;
     }
+
+    public int getArticleCount() {
+        if(articles == null) {
+            return 0;
+        }
+        return articles.size();
+    }
+
     public void getTopHeadlinesAustria(){}
-    public void filterList(String query, List<Article> articles){
+
+    public List<Article> filterList(String query, List<Article> articles) {
+        return null;
     }
 
     public void getAllNewsBitcoin() {

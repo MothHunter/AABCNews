@@ -15,7 +15,7 @@
                 <Label fx:id="welcomeText" text="AABCNews" />
                 <ChoiceBox prefWidth="150.0" />
                 <Button onAction="#onHelloButtonClick" prefHeight="30.0" prefWidth="100.0" text="Get News" />
-            <Button mnemonicParsing="false" text="Quit" />
+                <Button fx:id="quitButton" onAction="#onQuitButtonClick" mnemonicParsing="false" text="Quit" />
             </children>
         </VBox>
     </children>
