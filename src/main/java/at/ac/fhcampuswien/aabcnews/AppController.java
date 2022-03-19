@@ -54,7 +54,15 @@ public class AppController {
     public void getTopHeadlinesAustria(){}
 
     public List<Article> filterList(String query, List<Article> articles) {
-        return null;
+        List<Article> foundArticles = new ArrayList<Article>();
+        for (int i = 0; i < articles.size(); i++) {
+            Article a = articles.get(i);
+            if (a.getTitle().toLowerCase().contains(query.toLowerCase())) {
+                foundArticles.add(a);
+            }
+        }
+
+        return foundArticles;
     }
 
     public void getAllNewsBitcoin() {
