@@ -75,6 +75,8 @@ public class AppController {
         mockList.add(new Article("Lea M. Christa", "Tiger momming for the childless"));
         mockList.add(new Article("Florian Bodner", "Why chocolate should count as a vegetable"));
         mockList.add(new Article("M. O. Tivation", "Ich bin dann mal weg..."));
+        mockList.add(new Article("Navid Dariya", "Bitcoin price: Who controls Bitcoin price?"));
+        mockList.add(new Article("Navid Dariya", "Wundambulanz Austria präsentiert ihre frisch gebackenen Absolventen im Wundmanagement"));
         return mockList;
     }
 
