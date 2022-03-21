@@ -1,5 +1,6 @@
 package at.ac.fhcampuswien.aabcnews;
 
+import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -78,16 +79,17 @@ public class AppControllerTest {
         try {
             Method m = AppController.class.getMethod("filterList", String.class, List.class);
             List<Article> actualList = appController.filterList("this", articles);
-
-            Assertions.assertEquals(2, actualList.size());
-            Assertions.assertEquals("A", actualList.get(0).getAuthor());
-            Assertions.assertEquals("B", actualList.get(1).getAuthor());
-            Assertions.assertEquals("This is a1", actualList.get(0).getTitle());
-            Assertions.assertEquals("This is b1", actualList.get(1).getTitle());
-
+            if(actualList == null) {
+                Assertions.fail("Because the actual list is null");
+            } else {
+                Assertions.assertEquals(2, actualList.size());
+                Assertions.assertEquals("A", actualList.get(0).getAuthor());
+                Assertions.assertEquals("B", actualList.get(1).getAuthor());
+                Assertions.assertEquals("This is a1", actualList.get(0).getTitle());
+                Assertions.assertEquals("This is b1", actualList.get(1).getTitle());
+            }
         } catch (Exception e) {
             Assertions.fail("Method filterList not found");
-
         }
     }
 
