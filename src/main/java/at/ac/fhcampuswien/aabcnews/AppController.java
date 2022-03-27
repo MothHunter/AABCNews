@@ -49,13 +49,46 @@ public class AppController {
     }
 
     public int getArticleCount() {
+        // TODO (A2) re-enable method part for articles == null
+        //      -> run test
+        //      -> commit & push
+        /*
         if(articles == null) {
             return 0;
         }
-        return articles.size();
+
+         */
+        // TODO (A4) re-enable method part for returning number of articles in the list
+        //      -> run test
+        //      -> commit & push
+        // return articles.size();
+        return 0;
     }
 
-    public void getTopHeadlinesAustria(){}
+    public void getTopHeadlinesAustria(){
+        // TODO (B2) write code to return an empty list when articles is set to null
+        //      -> run test
+        //      -> commit & push
+
+
+        // TODO (B4) write code to return the entire list of articles if it is not null
+        //      -> run test
+        //      -> commit & push
+
+    }
+
+    public void getAllNewsBitcoin() {
+
+        // TODO (C2) write code to return an empty list when articles is set to null
+        //      -> run test
+        //      -> commit & push
+
+
+        // TODO (C4) write code to return the entire list of articles if it is not null
+        //      -> run test
+        //      -> commit & push
+
+    }
 
     public List<Article> filterList(String query, List<Article> articles) {
         List<Article> foundArticles = new ArrayList<Article>();
@@ -69,10 +102,6 @@ public class AppController {
         return foundArticles;
     }
 
-    public void getAllNewsBitcoin() {
-    }
-
-    //TODO: write generateMockList method to create dummy list of articles
     private List<Article> generateMockList(){
         List<Article> mockList = new ArrayList<>();
         mockList.add(new Article("Florian Bodner","Warum heute zutage gehen die Kinder gern in die Schule"));

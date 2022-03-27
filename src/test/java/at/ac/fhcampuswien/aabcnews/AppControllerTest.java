@@ -1,18 +1,12 @@
 package at.ac.fhcampuswien.aabcnews;
 
-import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
+
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
-import org.opentest4j.AssertionFailedError;
-
-import java.lang.reflect.Method;
 
 public class AppControllerTest {
 
@@ -22,28 +16,30 @@ public class AppControllerTest {
         try {
             Method m = AppController.class.getMethod("setArticles", List.class);
         } catch (Exception e) {
-            Assertions.fail("Method setArticles not found!");
-        }
-        try {
-            obj.setArticles(new ArrayList<Article>());
-        } catch (Exception e) {
-            Assertions.fail("setArticles failed to accept parameter from ArrayList type");
+            fail("Method setArticles not found or does not take correct parameters!");
         }
     }
 
     @Test
-    public void getArticleCount() {
+    public void getArticleCountTest_1() {
 
         AppController obj = new AppController();
         try {
             Method m = AppController.class.getMethod("getArticleCount");
+            assertEquals (0,obj.getArticleCount(), "result of articleCount must not be negative!");
         } catch (Exception e) {
-            Assertions.fail("Method getArticleCount not found");
-
+            fail("Method getArticleCount not found");
         }
-        assert (obj.getArticleCount() >= 0);
-
     }
+
+    //TODO: (A1) write getArticleCountTest_2 to check for expected return value after setting the article
+    //      List to null.
+    //      -> commit & push
+
+
+    //TODO: (A3) write getArticleCountTest_3 to check for expected return value after setting the article to a new List.
+    //      -> commit & push
+    //      (we should have done both of those before writing the functionality in the getArticleCount method)
 
     @Test
     public void getAllNewsBitcoinTest() {
@@ -51,25 +47,55 @@ public class AppControllerTest {
         try {
             Method m = AppController.class.getMethod("getAllNewsBitcoin");
         } catch (Exception e) {
-            Assertions.fail("Method setArticles not found!");
+            fail("Method getAllNewsBitcoin not found!");
         }
     }
 
 
     @Test
-    public void getTopHeadlinesAustriaTest() {
+    public void getTopHeadlinesAustriaTest_1() {
         AppController obj = new AppController();
         try {
             Method m = AppController.class.getMethod("getTopHeadlinesAustria");
         } catch (Exception e) {
-            Assertions.fail("Method getTopHeadlinesAustria not found!");
+            fail("Method getTopHeadlinesAustria not found!");
         }
     }
 
-    //TODO: write test for filterList method
-    @Test
-    public void filterListTest() {
+    //TODO: (B1) write test for getTopHeadlinesAustria: after setting the list of articles to null through setArticles
+    //      it should return an empty list
+    //      -> commit & push
 
+    //TODO: (B3) write test for getTopHeadlinesAustria: after setting a new list of articles through setArticles
+    //      it should return the entire list
+    //      -> commit & push
+
+
+
+    //TODO: (C1) write test for getAllNewsBitcoin: after setting the list of articles to null through setArticles
+    //      it should return an empty list
+    //      -> commit & push
+
+    //TODO: (C3) write test for getAllNewsBitcoin: after setting a new list of articles through setArticles
+    //      it should return the entire list
+    //      -> commit & push
+
+
+
+    @Test
+    public void filterListTest_1() {
+
+        AppController appController = new AppController();
+        try {
+            Method m = AppController.class.getMethod("filterList", String.class, List.class);
+        } catch (Exception e) {
+            fail("Method filterList not found or expects incorrect parameters");
+        }
+    }
+
+    // we may have to break up this test for filterList into more, smaller tests
+    @Test
+    public void filterListTest_2() {
         AppController appController = new AppController();
         List<Article> articles = new ArrayList<>();
         articles.add(new Article("A", "This is a1"));
@@ -77,19 +103,18 @@ public class AppControllerTest {
         articles.add(new Article("C", "These are c1"));
         articles.add(new Article("D", "These are d1"));
         try {
-            Method m = AppController.class.getMethod("filterList", String.class, List.class);
             List<Article> actualList = appController.filterList("this", articles);
             if(actualList == null) {
-                Assertions.fail("Because the actual list is null");
+                fail("filterList returned null!");
             } else {
-                Assertions.assertEquals(2, actualList.size());
-                Assertions.assertEquals("A", actualList.get(0).getAuthor());
-                Assertions.assertEquals("B", actualList.get(1).getAuthor());
-                Assertions.assertEquals("This is a1", actualList.get(0).getTitle());
-                Assertions.assertEquals("This is b1", actualList.get(1).getTitle());
+                assertEquals(2, actualList.size());
+                assertEquals("A", actualList.get(0).getAuthor());
+                assertEquals("B", actualList.get(1).getAuthor());
+                assertEquals("This is a1", actualList.get(0).getTitle());
+                assertEquals("This is b1", actualList.get(1).getTitle());
             }
         } catch (Exception e) {
-            Assertions.fail("Method filterList not found");
+            fail("Method filterList not found");
         }
     }
 
