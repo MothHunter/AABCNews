@@ -130,9 +130,6 @@ public class AppControllerTest {
             fail("Not found!");
         }
     }
-    //TODO: (B3) write test for getTopHeadlinesAustria: after setting a new list of articles through setArticles
-    //      it should return the entire list
-    //      -> commit & push
 
 
     //TODO: (C1) write test for getAllNewsBitcoin: after setting the list of articles to null through setArticles

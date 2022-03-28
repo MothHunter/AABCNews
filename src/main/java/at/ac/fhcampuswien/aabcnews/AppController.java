@@ -66,17 +66,18 @@ public class AppController {
 
     }
 
-    public void getAllNewsBitcoin() {
+    public List<Article> getAllNewsBitcoin() {
 
         // TODO (C2) write code to return an empty list when articles is set to null
         //      -> run test
         //      -> commit & push
 
 
-        // TODO (C4) write code to return the entire list of articles if it is not null
+        // TODO (C4) if articles is not null, call filterList with query "bitcoin" and return that list
         //      -> run test
         //      -> commit & push
 
+        return null;
     }
 
     public List<Article> filterList(String query, List<Article> articles) {
