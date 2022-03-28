@@ -60,16 +60,19 @@ public class AppController {
         return 0;
     }
 
-    public void getTopHeadlinesAustria(){
+    public List<Article> getTopHeadlinesAustria(){
+
         // TODO (B2) write code to return an empty list when articles is set to null
         //      -> run test
         //      -> commit & push
 
 
+
+
         // TODO (B4) write code to return the entire list of articles if it is not null
         //      -> run test
         //      -> commit & push
-
+        return null;
     }
 
     public void getAllNewsBitcoin() {
@@ -86,7 +89,7 @@ public class AppController {
     }
 
     public List<Article> filterList(String query, List<Article> articles) {
-        List<Article> foundArticles = new ArrayList<Article>();
+        List<Article> foundArticles = new ArrayList<>();
         for (int i = 0; i < articles.size(); i++) {
             Article a = articles.get(i);
             if (a.getTitle().toLowerCase().contains(query.toLowerCase())) {
