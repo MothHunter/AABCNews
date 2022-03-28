@@ -48,11 +48,7 @@ public class AppControllerTest {
         }
 
     }
-    //TODO: (A1) write getArticleCountTest_2 to check for expected return value after setting the article
-    //      List to null.
-    //      -> commit & push
-
-
+    
     //TODO: (A3) write getArticleCountTest_3 to check for expected return value after setting the article to a new List.
     //      -> commit & push
     //      (we should have done both of those before writing the functionality in the getArticleCount method)

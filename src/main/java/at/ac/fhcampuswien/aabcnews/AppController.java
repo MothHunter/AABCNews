@@ -49,15 +49,10 @@ public class AppController {
     }
 
     public int getArticleCount() {
-        // TODO (A2) re-enable method part for articles == null
-        //      -> run test
-        //      -> commit & push
-        /*
         if(articles == null) {
             return 0;
         }
 
-         */
         // TODO (A4) re-enable method part for returning number of articles in the list
         //      -> run test
         //      -> commit & push
