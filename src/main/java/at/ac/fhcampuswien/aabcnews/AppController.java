@@ -52,12 +52,7 @@ public class AppController {
         if(articles == null) {
             return 0;
         }
-
-        // TODO (A4) re-enable method part for returning number of articles in the list
-        //      -> run test
-        //      -> commit & push
-        // return articles.size();
-        return 0;
+         return articles.size();
     }
 
     public List<Article> getTopHeadlinesAustria(){
