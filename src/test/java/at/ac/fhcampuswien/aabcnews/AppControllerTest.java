@@ -1,6 +1,7 @@
 package at.ac.fhcampuswien.aabcnews;
 
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,9 +11,15 @@ import java.util.List;
 
 public class AppControllerTest {
 
+    AppController appController;
+
+    @BeforeEach
+    public void initialize () {
+    appController = new AppController();
+    }
+
     @Test
     public void setArticlesTest() {
-        AppController obj = new AppController();
         try {
             Method m = AppController.class.getMethod("setArticles", List.class);
         } catch (Exception e) {
@@ -22,16 +29,25 @@ public class AppControllerTest {
 
     @Test
     public void getArticleCountTest_1() {
-
-        AppController obj = new AppController();
         try {
             Method m = AppController.class.getMethod("getArticleCount");
-            assertEquals (0,obj.getArticleCount(), "result of articleCount must not be negative!");
+            assertEquals (0,appController.getArticleCount(), "result of articleCount must not be negative!");
         } catch (Exception e) {
             fail("Method getArticleCount not found");
         }
     }
 
+    @Test
+    public void getArticleCountTest_2 () {
+        try {
+            appController.setArticles(null);
+            assertEquals(0,appController.getArticleCount(),
+                    "Return value was not 0 when Articles was set to null");
+        }catch (Exception e) {
+            fail("Method getArticleCount not found");
+        }
+
+    }
     //TODO: (A1) write getArticleCountTest_2 to check for expected return value after setting the article
     //      List to null.
     //      -> commit & push
@@ -43,7 +59,6 @@ public class AppControllerTest {
 
     @Test
     public void getAllNewsBitcoinTest() {
-        AppController obj = new AppController();
         try {
             Method m = AppController.class.getMethod("getAllNewsBitcoin");
         } catch (Exception e) {
@@ -54,7 +69,6 @@ public class AppControllerTest {
 
     @Test
     public void getTopHeadlinesAustriaTest_1() {
-        AppController obj = new AppController();
         try {
             Method m = AppController.class.getMethod("getTopHeadlinesAustria");
         } catch (Exception e) {
@@ -84,8 +98,6 @@ public class AppControllerTest {
 
     @Test
     public void filterListTest_1() {
-
-        AppController appController = new AppController();
         try {
             Method m = AppController.class.getMethod("filterList", String.class, List.class);
         } catch (Exception e) {
@@ -96,14 +108,14 @@ public class AppControllerTest {
     // we may have to break up this test for filterList into more, smaller tests
     @Test
     public void filterListTest_2() {
-        AppController appController = new AppController();
         List<Article> articles = new ArrayList<>();
         articles.add(new Article("A", "This is a1"));
         articles.add(new Article("B", "This is b1"));
         articles.add(new Article("C", "These are c1"));
         articles.add(new Article("D", "These are d1"));
         try {
-            List<Article> actualList = appController.filterList("this", articles);
+            List<Article> actualList = appController.filterList("this", articles); // es wird die gefilterte Liste
+            // in actualList gespeichert
             if(actualList == null) {
                 fail("filterList returned null!");
             } else {
