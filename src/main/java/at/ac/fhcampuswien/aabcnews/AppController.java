@@ -66,15 +66,10 @@ public class AppController {
 
             return emptyList;
         }
+        else{
+           return articles;
+        }
 
-
-
-
-
-        // TODO (B4) write code to return the entire list of articles if it is not null
-        //      -> run test
-        //      -> commit & push
-        return null;
     }
 
     public void getAllNewsBitcoin() {
