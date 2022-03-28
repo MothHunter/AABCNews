@@ -51,10 +51,20 @@ public class AppControllerTest {
         }
 
     }
-
-    //TODO: (A3) write getArticleCountTest_3 to check for expected return value after setting the article to a new List.
-    //      -> commit & push
-    //      (we should have done both of those before writing the functionality in the getArticleCount method)
+    @Test
+    public void getArticleCountTest_3() {
+        try {
+            List<Article> testList = new ArrayList<>();
+            testList.add(new Article("Dickens", "Great Expectations"));
+            testList.add(new Article("Jules Verne", "20.000 leagues under the Seas"));
+            testList.add(new Article("Dostoievski", " The Idiot"));
+            appController.setArticles(testList);
+            assertEquals(testList.size(), appController.getArticleCount(), "The number of articles in the list" +
+                    "was not correct");
+        }catch (Exception e) {
+            fail("Method getArticleCount not found");
+        }
+    }
 
     @Test
     public void getAllNewsBitcoinTest() {
