@@ -85,10 +85,6 @@ public class AppControllerTest {
         }
     }
 
-    //TODO: (B1) write test for getTopHeadlinesAustria: after setting the list of articles to null through setArticles
-    //      it should return an empty list
-    //      -> commit & push
-
     @Test
     public void getTopHeadlinesAustriaTest_2() {
         try{

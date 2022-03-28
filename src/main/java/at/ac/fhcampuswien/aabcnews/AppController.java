@@ -32,8 +32,7 @@ public class AppController {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
 
-    //TODO: 1. write "onQuitButtonClick" method and add as "onAction" property in menu-view.xml
-    //      2. implement functionality for the button (close program)
+
     @FXML
     protected void onQuitButtonClick() {
         Stage stage = (Stage) quitButton.getScene().getWindow();
