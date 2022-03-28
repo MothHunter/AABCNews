@@ -85,15 +85,13 @@ public class AppControllerTest {
             appController.setArticles(null); //object from type AppController which can be used
             assertNotEquals(null,appController.getTopHeadlinesAustria(), //null =no object saved in ref.
                     "getTopHeadlinesAustria should never return null!");
-
-
         }
         catch (Exception e){
             fail("Method getTopHeadlinesAustria not found!");
         }
-
-
     }
+
+
     //ob wir null zurückbekommen sondern ob die liste die wir testen länge 0 ... .size
     //assertEquals...
     // size...message...die rückgb list should be of the length. 0
@@ -110,6 +108,21 @@ public class AppControllerTest {
         }
 
 
+    }
+    @Test
+    public void getTopHeadlinesAustriaTest_4() {
+        try {
+         List<Article> testList  = new ArrayList<>();
+         testList.add(new Article("a","f"));
+         testList.add(new Article("w","k"));
+            appController.setArticles(testList);
+            assertTrue(testList.equals(appController.getTopHeadlinesAustria()),
+                    "return List is not the same the set list");
+
+        }
+        catch (Exception e){
+            fail("Not found!");
+        }
     }
     //TODO: (B3) write test for getTopHeadlinesAustria: after setting a new list of articles through setArticles
     //      it should return the entire list
