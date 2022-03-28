@@ -61,10 +61,12 @@ public class AppController {
     }
 
     public List<Article> getTopHeadlinesAustria(){
+        if(articles==null){
+            List<Article> emptyList = new ArrayList<>();
 
-        // TODO (B2) write code to return an empty list when articles is set to null
-        //      -> run test
-        //      -> commit & push
+            return emptyList;
+        }
+
 
 
 
