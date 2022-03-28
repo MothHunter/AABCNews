@@ -83,8 +83,26 @@ public class AppControllerTest {
     public void getTopHeadlinesAustriaTest_2() {
         try{
             appController.setArticles(null); //object from type AppController which can be used
-            assertNotEquals(null,appController.getTopHeadlinesAustria(),
+            assertNotEquals(null,appController.getTopHeadlinesAustria(), //null =no object saved in ref.
                     "getTopHeadlinesAustria should never return null!");
+
+
+        }
+        catch (Exception e){
+            fail("Method getTopHeadlinesAustria not found!");
+        }
+
+
+    }
+    //ob wir null zurückbekommen sondern ob die liste die wir testen länge 0 ... .size
+    //assertEquals...
+    // size...message...die rückgb list should be of the length. 0
+    @Test
+    public void getTopHeadlinesAustriaTest_3() {
+        try{
+            appController.setArticles(null); //object from type AppController which can be used
+            assertEquals(0,appController.getTopHeadlinesAustria().size(),
+                    "the return value of the list should be of the length 0.");
 
         }
         catch (Exception e){
