@@ -27,6 +27,7 @@ public class AppController {
     //         Name must also be changed in menu-view.xml for the "onAction" property of the button
     //         (switch to "Text" display)
     //      2. implement functionality for the button (filter news list and display requested items)
+
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");

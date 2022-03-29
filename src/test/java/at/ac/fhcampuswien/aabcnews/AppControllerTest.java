@@ -132,9 +132,25 @@ public class AppControllerTest {
     }
 
 
+
     //TODO: (C1) write test for getAllNewsBitcoin: after setting the list of articles to null through setArticles
     //      it should return an empty list
     //      -> commit & push
+
+@Test
+public void getAllNewsBitcoinTest_1(){
+        try{
+            appController.setArticles(null);
+            assertNotEquals(null,appController.getAllNewsBitcoin(),
+                    " getAllNewsBitcoin should never return null"); // null= reference not set to an instance
+
+        }
+        catch(Exception e){
+            fail("Not found!");
+        }
+}
+
+
 
     //TODO: (C3) write test for getAllNewsBitcoin: after setting a new list of articles through setArticles
     //      it should return the entire list
