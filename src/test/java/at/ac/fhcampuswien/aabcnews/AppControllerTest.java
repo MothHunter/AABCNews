@@ -155,6 +155,31 @@ public void getAllNewsBitcoinTest_1(){
     //TODO: (C3) write test for getAllNewsBitcoin: after setting a new list of articles through setArticles
     //      it should return the entire list
     //      -> commit & push
+    @Test
+    public void getAllNewsBitcoinTest_2(){
+        try{
+            List<Article> testList  = new ArrayList<>();
+            testList.add(new Article("a","f"));
+            testList.add(new Article("w","k"));
+            testList.add(new Article("bitpanda", "bitcoin is reaching its peak!"));
+            //testList should be set as the appController list
+            // we expect a list with one entry (bitpanda ...)
+            List<Article> expectedList = new ArrayList<>();
+            expectedList.add(testList.get(2));
+
+            appController.setArticles(testList);
+           assertEquals(expectedList,appController.getAllNewsBitcoin(),
+            "The returned list was not correct!");
+            //
+
+
+        }
+        catch(Exception e){
+            fail("Not found!");
+
+        }
+
+    }
 
 
     @Test

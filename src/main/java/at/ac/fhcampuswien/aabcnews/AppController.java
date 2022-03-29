@@ -73,14 +73,13 @@ public class AppController {
             return emptyList;
         } //hier kommt später else
 
-        // TODO (C2) write code to return an empty list when articles is set to null
-        //      -> run test
-        //      -> commit & push
+
 
 
         // TODO (C4) if articles is not null, call filterList with query "bitcoin" and return that list
         //      -> run test
         //      -> commit & push
+        //appController.filterList("bitcoin",testList);//the entered string is saved under query
 
         return null;
     }
