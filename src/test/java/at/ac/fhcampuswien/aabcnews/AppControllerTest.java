@@ -133,9 +133,6 @@ public class AppControllerTest {
 
 
 
-    //TODO: (C1) write test for getAllNewsBitcoin: after setting the list of articles to null through setArticles
-    //      it should return an empty list
-    //      -> commit & push
 
 @Test
 public void getAllNewsBitcoinTest_1(){
@@ -152,9 +149,7 @@ public void getAllNewsBitcoinTest_1(){
 
 
 
-    //TODO: (C3) write test for getAllNewsBitcoin: after setting a new list of articles through setArticles
-    //      it should return the entire list
-    //      -> commit & push
+
     @Test
     public void getAllNewsBitcoinTest_2(){
         try{

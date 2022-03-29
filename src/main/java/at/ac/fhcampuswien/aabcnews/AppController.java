@@ -71,17 +71,13 @@ public class AppController {
         if(articles==null){
             List<Article> emptyList = new ArrayList<>();
             return emptyList;
-        } //hier kommt später else
+        } else{
+            return filterList("bitcoin",articles); //wir filtern das wort bitcoin aus den artikel
+        }
 
 
 
 
-        // TODO (C4) if articles is not null, call filterList with query "bitcoin" and return that list
-        //      -> run test
-        //      -> commit & push
-        //appController.filterList("bitcoin",testList);//the entered string is saved under query
-
-        return null;
     }
 
     public List<Article> filterList(String query, List<Article> articles) {
