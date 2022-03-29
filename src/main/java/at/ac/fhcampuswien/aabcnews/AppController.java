@@ -2,6 +2,7 @@ package at.ac.fhcampuswien.aabcnews;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -18,7 +19,7 @@ public class AppController {
     private List<Article> articles;
 
     @FXML
-    private Label welcomeText;
+    private ChoiceBox<String> choiceBox;
 
     @FXML
     private Button quitButton;
@@ -29,10 +30,9 @@ public class AppController {
     //      2. implement functionality for the button (filter news list and display requested items)
 
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
+    protected void onGetNewsButtonClick() {
 
+    }
 
     @FXML
     protected void onQuitButtonClick() {
@@ -40,10 +40,21 @@ public class AppController {
         stage.close();
     }
 
-
     public AppController() {
-      this.articles = generateMockList();
+        this.articles = generateMockList();
     }
+
+    /*  initialize ist eine von javaFX definierte Methode, die aufgerufen wird nachdem der Constructor fertig ist und
+        die mit @FXML markierten Referenzen "befüllt" wurden.
+        Wir brauchen sie um GUI-Elemente zu initialisieren, auf die wir im Constructor noch nicht zugreifen können.
+     */
+    @FXML
+    public void initialize() {
+        choiceBox.getItems().add("All News Bitcoin"); // gets list of items and adds a new one
+        choiceBox.getItems().add("Top News Austria");
+        choiceBox.getSelectionModel().select(1); // sets the item at position 1 as the one selected at the beginning
+    }
+
     public void setArticles(List<Article> articles){
         this.articles = articles;
     }

@@ -4,18 +4,22 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox alignment="CENTER" prefHeight="277.0" prefWidth="425.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.ac.fhcampuswien.aabcnews.AppController">
+<?import javafx.scene.text.TextFlow?>
+<HBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.ac.fhcampuswien.aabcnews.AppController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
     <children>
-        <ListView />
-        <VBox prefHeight="238.0" prefWidth="99.0" spacing="10.0">
+        <ListView prefWidth="360" />
+        <VBox alignment="TOP_RIGHT" prefHeight="360.0" prefWidth="200.0" spacing="10.0">
             <children>
-                <Label fx:id="welcomeText" text="AABCNews" />
-                <ChoiceBox prefWidth="150.0" />
-                <Button onAction="#onHelloButtonClick" prefHeight="30.0" prefWidth="100.0" text="Get News" />
-                <Button fx:id="quitButton" onAction="#onQuitButtonClick" mnemonicParsing="false" text="Quit" />
+                <TextFlow>
+                    <Label textAlignment="CENTER" prefWidth="200" style="-fx-font-weight: bold; -fx-font-size: 24;" text="Welcome to AABCNews" wrapText="true" /></TextFlow>
+                <ChoiceBox fx:id="choiceBox" prefWidth="190.0" />
+                <Button onAction="#onGetNewsButtonClick" prefHeight="30.0" prefWidth="100.0" text="Get News" />
+                <Label prefHeight="350" />
+                <Button fx:id="quitButton" mnemonicParsing="false" onAction="#onQuitButtonClick" text="Quit">
+                </Button>
             </children>
         </VBox>
     </children>
