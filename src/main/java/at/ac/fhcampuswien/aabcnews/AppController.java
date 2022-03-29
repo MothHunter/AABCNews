@@ -68,6 +68,10 @@ public class AppController {
     }
 
     public List<Article> getAllNewsBitcoin() {
+        if(articles==null){
+            List<Article> emptyList = new ArrayList<>();
+            return emptyList;
+        } //hier kommt später else
 
         // TODO (C2) write code to return an empty list when articles is set to null
         //      -> run test
