@@ -43,6 +43,7 @@ public class AppController {
             selectedList = getTopHeadlinesAustria();
         }
 
+        listView.getItems().clear();
         for(int i = 0; i< selectedList.size(); i++){
 
             listView.getItems().add(selectedList.get(i).toString());
