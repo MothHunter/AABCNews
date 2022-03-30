@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
@@ -20,6 +21,8 @@ public class AppController {
 
     @FXML
     private ChoiceBox<String> choiceBox;
+    @FXML
+    private ListView<String> listView;
 
     @FXML
     private Button quitButton;
@@ -31,8 +34,22 @@ public class AppController {
 
     @FXML
     protected void onGetNewsButtonClick() {
+        String choice = choiceBox.getValue();
+        List<Article> selectedList;
+        if(choice.equals("All News Bitcoin")){
+            selectedList = getAllNewsBitcoin();
 
+        } else{
+            selectedList = getTopHeadlinesAustria();
+        }
+
+        for(int i = 0; i< selectedList.size(); i++){
+
+            listView.getItems().add(selectedList.get(i).toString());
+        }
     }
+
+
 
     @FXML
     protected void onQuitButtonClick() {

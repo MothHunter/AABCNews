@@ -163,6 +163,7 @@ public void getAllNewsBitcoinTest_1(){
             expectedList.add(testList.get(2));
 
             appController.setArticles(testList);
+
            assertEquals(expectedList,appController.getAllNewsBitcoin(),
             "The returned list was not correct!");
             //
