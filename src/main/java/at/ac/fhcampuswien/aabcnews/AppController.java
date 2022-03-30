@@ -66,6 +66,7 @@ public class AppController {
         die mit @FXML markierten Referenzen "befüllt" wurden.
         Wir brauchen sie um GUI-Elemente zu initialisieren, auf die wir im Constructor noch nicht zugreifen können.
      */
+
     @FXML
     public void initialize() {
         choiceBox.getItems().add("All News Bitcoin"); // gets list of items and adds a new one
