@@ -5,20 +5,20 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<HBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.ac.fhcampuswien.aabcnews.AppController">
+<HBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="20.0" style="-fx-background-color: #D3D3D3;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.ac.fhcampuswien.aabcnews.AppController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
     <children>
-        <ListView fx:id="listView" prefWidth="360"/>
+        <ListView fx:id="listView" prefWidth="360" />
         <VBox alignment="TOP_RIGHT" prefHeight="360.0" prefWidth="200.0" spacing="10.0">
             <children>
                 <TextFlow>
                     <Label prefWidth="200" style="-fx-font-weight: bold; -fx-font-size: 24;" text="Welcome to AABCDnews" textAlignment="CENTER" wrapText="true" /></TextFlow>
                 <ChoiceBox fx:id="choiceBox" prefWidth="190.0" />
-                <Button onAction="#onGetNewsButtonClick" prefHeight="30.0" prefWidth="100.0" text="Get News" />
+                <Button onAction="#onGetNewsButtonClick" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #999e46;" text="Get News" />
                 <Label prefHeight="350" />
-            <Label prefWidth="200.0" fx:id="countLabel"/>
+            <Label fx:id="countLabel" prefWidth="200.0" />
                 <Button fx:id="quitButton" mnemonicParsing="false" onAction="#onQuitButtonClick" text="Quit">
                 </Button>
             </children>

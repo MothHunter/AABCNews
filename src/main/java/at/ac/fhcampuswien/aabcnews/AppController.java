@@ -62,16 +62,16 @@ public class AppController {
         this.articles = generateMockList();
     }
 
-    /*  initialize ist eine von javaFX definierte Methode, die aufgerufen wird nachdem der Constructor fertig ist und
+    /*  initialize ist eine von javaFX definierte Methode, die aufgerufen wird, nachdem der Constructor fertig ist und
         die mit @FXML markierten Referenzen "befüllt" wurden.
         Wir brauchen sie um GUI-Elemente zu initialisieren, auf die wir im Constructor noch nicht zugreifen können.
      */
 
     @FXML
     public void initialize() {
-        choiceBox.getItems().add("All News Bitcoin"); // gets list of items and adds a new one
+        choiceBox.getItems().add("All News Bitcoin");
         choiceBox.getItems().add("Top News Austria");
-        choiceBox.getSelectionModel().select(1); // sets the item at position 1 as the one selected at the beginning
+        choiceBox.getSelectionModel().select(1);
     }
 
     public void setArticles(List<Article> articles) {
@@ -101,7 +101,7 @@ public class AppController {
             List<Article> emptyList = new ArrayList<>();
             return emptyList;
         } else {
-            return filterList("bitcoin", articles); //wir filtern das wort bitcoin aus den artikel
+            return filterList("bitcoin", articles);
         }
 
 

@@ -88,8 +88,8 @@ public class AppControllerTest {
     @Test
     public void getTopHeadlinesAustriaTest_2() {
         try{
-            appController.setArticles(null); //object from type AppController which can be used
-            assertNotEquals(null,appController.getTopHeadlinesAustria(), //null =no object saved in ref.
+            appController.setArticles(null);
+            assertNotEquals(null,appController.getTopHeadlinesAustria(),
                     "getTopHeadlinesAustria should never return null!");
         }
         catch (Exception e){
@@ -98,13 +98,10 @@ public class AppControllerTest {
     }
 
 
-    //ob wir null zurückbekommen sondern ob die liste die wir testen länge 0 ... .size
-    //assertEquals...
-    // size...message...die rückgb list should be of the length. 0
     @Test
     public void getTopHeadlinesAustriaTest_3() {
         try{
-            appController.setArticles(null); //object from type AppController which can be used
+            appController.setArticles(null);
             assertEquals(0,appController.getTopHeadlinesAustria().size(),
                     "the return value of the list should be of the length 0.");
 
@@ -139,7 +136,7 @@ public void getAllNewsBitcoinTest_1(){
         try{
             appController.setArticles(null);
             assertNotEquals(null,appController.getAllNewsBitcoin(),
-                    " getAllNewsBitcoin should never return null"); // null= reference not set to an instance
+                    " getAllNewsBitcoin should never return null");
 
         }
         catch(Exception e){
@@ -157,8 +154,6 @@ public void getAllNewsBitcoinTest_1(){
             testList.add(new Article("a","f"));
             testList.add(new Article("w","k"));
             testList.add(new Article("bitpanda", "bitcoin is reaching its peak!"));
-            //testList should be set as the appController list
-            // we expect a list with one entry (bitpanda ...)
             List<Article> expectedList = new ArrayList<>();
             expectedList.add(testList.get(2));
 
@@ -166,7 +161,6 @@ public void getAllNewsBitcoinTest_1(){
 
            assertEquals(expectedList,appController.getAllNewsBitcoin(),
             "The returned list was not correct!");
-            //
 
 
         }
@@ -185,8 +179,7 @@ public void filterListTest_1() {
     articles.add(new Article("C", "These are c1"));
     articles.add(new Article("D", "These are d1"));
     try {
-        List<Article> actualList = appController.filterList("this", articles); // es wird die gefilterte Liste
-        // in actualList gespeichert
+        List<Article> actualList = AppController.filterList("this", articles);
         if (actualList == null) {
             fail("filterList returned null!");
         } else {
@@ -206,8 +199,7 @@ public void filterListTest_1() {
         articles.add(new Article("C", "These are c1"));
         articles.add(new Article("D", "These are d1"));
         try {
-            List<Article> actualList = appController.filterList("java", articles); // es wird die gefilterte Liste
-            // in actualList gespeichert
+            List<Article> actualList = AppController.filterList("java", articles);
             if (actualList == null) {
                 fail("filterList returned null!");
             } else {
@@ -227,8 +219,7 @@ public void filterListTest_1() {
         articles.add(new Article("C", "These are c1"));
         articles.add(new Article("D", "These are d1"));
         try {
-            List<Article> actualList = appController.filterList("c1", articles); // es wird die gefilterte Liste
-            // in actualList gespeichert
+            List<Article> actualList = AppController.filterList("c1", articles);
             if (actualList == null) {
                 fail("filterList returned null!");
             } else {
