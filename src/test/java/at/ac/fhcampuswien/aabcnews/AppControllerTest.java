@@ -177,17 +177,27 @@ public void getAllNewsBitcoinTest_1(){
 
     }
 
-/*
-    @Test
-    public void filterListTest_1() {
-        try {
-            Method m = AppController.class.getMethod("filterList", String.class, List.class);
-        } catch (Exception e) {
-            fail("Method filterList not found or expects incorrect parameters");
+@Test
+public void filterListTest_1() {
+    List<Article> articles = new ArrayList<>();
+    articles.add(new Article("A", "This is a1"));
+    articles.add(new Article("B", "This is b1"));
+    articles.add(new Article("C", "These are c1"));
+    articles.add(new Article("D", "These are d1"));
+    try {
+        List<Article> actualList = appController.filterList("this", articles); // es wird die gefilterte Liste
+        // in actualList gespeichert
+        if (actualList == null) {
+            fail("filterList returned null!");
+        } else {
+            assertEquals(2, actualList.size(),"return list is not of expected size");
+
         }
+    } catch (Exception e) {
+        fail("Method filterList not found");
     }
-*/
-    // we may have to break up this test for filterList into more, smaller tests
+
+}
     @Test
     public void filterListTest_2() {
         List<Article> articles = new ArrayList<>();
@@ -196,16 +206,35 @@ public void getAllNewsBitcoinTest_1(){
         articles.add(new Article("C", "These are c1"));
         articles.add(new Article("D", "These are d1"));
         try {
-            List<Article> actualList = appController.filterList("this", articles); // es wird die gefilterte Liste
+            List<Article> actualList = appController.filterList("java", articles); // es wird die gefilterte Liste
             // in actualList gespeichert
             if (actualList == null) {
                 fail("filterList returned null!");
             } else {
-                assertEquals(2, actualList.size());
-                assertEquals("A", actualList.get(0).getAuthor());
-                assertEquals("B", actualList.get(1).getAuthor());
-                assertEquals("This is a1", actualList.get(0).getTitle());
-                assertEquals("This is b1", actualList.get(1).getTitle());
+                assertEquals(0, actualList.size(),"return list is not of expected size");
+
+            }
+        } catch (Exception e) {
+            fail("Method filterList not found");
+        }
+
+    }
+    @Test
+    public void filterListTest_3() {
+        List<Article> articles = new ArrayList<>();
+        articles.add(new Article("A", "This is a1"));
+        articles.add(new Article("B", "This is b1"));
+        articles.add(new Article("C", "These are c1"));
+        articles.add(new Article("D", "These are d1"));
+        try {
+            List<Article> actualList = appController.filterList("c1", articles); // es wird die gefilterte Liste
+            // in actualList gespeichert
+            if (actualList == null) {
+                fail("filterList returned null!");
+            } else {
+                assertEquals(articles.get(2).toString(), actualList.get(0).toString(),
+                        "filterList not return expected artikel");
+
             }
         } catch (Exception e) {
             fail("Method filterList not found");
