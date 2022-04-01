@@ -1,10 +1,7 @@
 package at.ac.fhcampuswien.aabcnews;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
@@ -19,6 +16,9 @@ public class AppController {
     String query;
     private List<Article> articles;
 
+    private static final String EXIT_MESSAGE = "Thank you for using ABCD News!";
+    private static final String EXIT_MESSAGE_2 = "Hope to see you again soon!";
+
     @FXML
     private ChoiceBox<String> choiceBox;
     @FXML
@@ -26,34 +26,35 @@ public class AppController {
 
     @FXML
     private Button quitButton;
-
-    //TODO: 1. replace "onHelloButtonClick" with "onGetNewsButtonClick" method
-    //         Name must also be changed in menu-view.xml for the "onAction" property of the button
-    //         (switch to "Text" display)
-    //      2. implement functionality for the button (filter news list and display requested items)
+    @FXML
+    private Label countLabel;
 
     @FXML
     protected void onGetNewsButtonClick() {
         String choice = choiceBox.getValue();
         List<Article> selectedList;
-        if(choice.equals("All News Bitcoin")){
+        if (choice.equals("All News Bitcoin")) {
             selectedList = getAllNewsBitcoin();
 
-        } else{
+        } else {
             selectedList = getTopHeadlinesAustria();
         }
 
         listView.getItems().clear();
-        for(int i = 0; i< selectedList.size(); i++){
+        for (int i = 0; i < selectedList.size(); i++) {
 
             listView.getItems().add(selectedList.get(i).toString());
         }
+        countLabel.setText("I found " + selectedList.size()  + " article(s).");
     }
-
-
 
     @FXML
     protected void onQuitButtonClick() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Goodbye!");
+        alert.setHeaderText(EXIT_MESSAGE);
+        alert.setContentText(EXIT_MESSAGE_2);
+        alert.showAndWait();
         Stage stage = (Stage) quitButton.getScene().getWindow();
         stage.close();
     }
@@ -74,43 +75,40 @@ public class AppController {
         choiceBox.getSelectionModel().select(1); // sets the item at position 1 as the one selected at the beginning
     }
 
-    public void setArticles(List<Article> articles){
+    public void setArticles(List<Article> articles) {
         this.articles = articles;
     }
 
     public int getArticleCount() {
-        if(articles == null) {
+        if (articles == null) {
             return 0;
         }
-         return articles.size();
+        return articles.size();
     }
 
-    public List<Article> getTopHeadlinesAustria(){
-        if(articles==null){
+    public List<Article> getTopHeadlinesAustria() {
+        if (articles == null) {
             List<Article> emptyList = new ArrayList<>();
 
             return emptyList;
-        }
-        else{
-           return articles;
+        } else {
+            return articles;
         }
 
     }
 
     public List<Article> getAllNewsBitcoin() {
-        if(articles==null){
+        if (articles == null) {
             List<Article> emptyList = new ArrayList<>();
             return emptyList;
-        } else{
-            return filterList("bitcoin",articles); //wir filtern das wort bitcoin aus den artikel
+        } else {
+            return filterList("bitcoin", articles); //wir filtern das wort bitcoin aus den artikel
         }
-
-
 
 
     }
 
-    public List<Article> filterList(String query, List<Article> articles) {
+    protected static List<Article> filterList(String query, List<Article> articles) {
         List<Article> foundArticles = new ArrayList<>();
         for (int i = 0; i < articles.size(); i++) {
             Article a = articles.get(i);
@@ -122,9 +120,9 @@ public class AppController {
         return foundArticles;
     }
 
-    private List<Article> generateMockList(){
+    private List<Article> generateMockList() {
         List<Article> mockList = new ArrayList<>();
-        mockList.add(new Article("Florian Bodner","Warum heute zutage gehen die Kinder gern in die Schule"));
+        mockList.add(new Article("Florian Bodner", "Warum heute zutage gehen die Kinder gern in die Schule"));
         mockList.add(new Article("Lea M. Christa", "Tiger momming for the childless"));
         mockList.add(new Article("Florian Bodner", "Why chocolate should count as a vegetable"));
         mockList.add(new Article("M. O. Tivation", "Ich bin dann mal weg..."));
