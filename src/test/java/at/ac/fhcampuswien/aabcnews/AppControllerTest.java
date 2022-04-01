@@ -51,6 +51,7 @@ public class AppControllerTest {
         }
 
     }
+
     @Test
     public void getArticleCountTest_3() {
         try {
@@ -61,7 +62,7 @@ public class AppControllerTest {
             appController.setArticles(testList);
             assertEquals(testList.size(), appController.getArticleCount(), "The number of articles in the list" +
                     "was not correct");
-        }catch (Exception e) {
+        } catch (Exception e) {
             fail("Method getArticleCount not found");
         }
     }
@@ -87,12 +88,11 @@ public class AppControllerTest {
 
     @Test
     public void getTopHeadlinesAustriaTest_2() {
-        try{
+        try {
             appController.setArticles(null);
-            assertNotEquals(null,appController.getTopHeadlinesAustria(),
+            assertNotEquals(null, appController.getTopHeadlinesAustria(),
                     "getTopHeadlinesAustria should never return null!");
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             fail("Method getTopHeadlinesAustria not found!");
         }
     }
@@ -100,97 +100,91 @@ public class AppControllerTest {
 
     @Test
     public void getTopHeadlinesAustriaTest_3() {
-        try{
+        try {
             appController.setArticles(null);
-            assertEquals(0,appController.getTopHeadlinesAustria().size(),
+            assertEquals(0, appController.getTopHeadlinesAustria().size(),
                     "the return value of the list should be of the length 0.");
 
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             fail("Method getTopHeadlinesAustria not found!");
         }
 
 
     }
+
     @Test
     public void getTopHeadlinesAustriaTest_4() {
         try {
-         List<Article> testList  = new ArrayList<>();
-         testList.add(new Article("a","f"));
-         testList.add(new Article("w","k"));
+            List<Article> testList = new ArrayList<>();
+            testList.add(new Article("a", "f"));
+            testList.add(new Article("w", "k"));
             appController.setArticles(testList);
             assertTrue(testList.equals(appController.getTopHeadlinesAustria()),
                     "return List is not the same the set list");
 
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             fail("Not found!");
         }
     }
 
 
-
-
-@Test
-public void getAllNewsBitcoinTest_1(){
-        try{
+    @Test
+    public void getAllNewsBitcoinTest_1() {
+        try {
             appController.setArticles(null);
-            assertNotEquals(null,appController.getAllNewsBitcoin(),
+            assertNotEquals(null, appController.getAllNewsBitcoin(),
                     " getAllNewsBitcoin should never return null");
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             fail("Not found!");
         }
-}
-
-
+    }
 
 
     @Test
-    public void getAllNewsBitcoinTest_2(){
-        try{
-            List<Article> testList  = new ArrayList<>();
-            testList.add(new Article("a","f"));
-            testList.add(new Article("w","k"));
+    public void getAllNewsBitcoinTest_2() {
+        try {
+            List<Article> testList = new ArrayList<>();
+            testList.add(new Article("a", "f"));
+            testList.add(new Article("w", "k"));
             testList.add(new Article("bitpanda", "bitcoin is reaching its peak!"));
             List<Article> expectedList = new ArrayList<>();
             expectedList.add(testList.get(2));
 
             appController.setArticles(testList);
 
-           assertEquals(expectedList,appController.getAllNewsBitcoin(),
-            "The returned list was not correct!");
+            assertEquals(expectedList, appController.getAllNewsBitcoin(),
+                    "The returned list was not correct!");
 
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             fail("Not found!");
 
         }
 
     }
 
-@Test
-public void filterListTest_1() {
-    List<Article> articles = new ArrayList<>();
-    articles.add(new Article("A", "This is a1"));
-    articles.add(new Article("B", "This is b1"));
-    articles.add(new Article("C", "These are c1"));
-    articles.add(new Article("D", "These are d1"));
-    try {
-        List<Article> actualList = AppController.filterList("this", articles);
-        if (actualList == null) {
-            fail("filterList returned null!");
-        } else {
-            assertEquals(2, actualList.size(),"return list is not of expected size");
+    @Test
+    public void filterListTest_1() {
+        List<Article> articles = new ArrayList<>();
+        articles.add(new Article("A", "This is a1"));
+        articles.add(new Article("B", "This is b1"));
+        articles.add(new Article("C", "These are c1"));
+        articles.add(new Article("D", "These are d1"));
+        try {
+            List<Article> actualList = AppController.filterList("this", articles);
+            if (actualList == null) {
+                fail("filterList returned null!");
+            } else {
+                assertEquals(2, actualList.size(), "return list is not of expected size");
 
+            }
+        } catch (Exception e) {
+            fail("Method filterList not found");
         }
-    } catch (Exception e) {
-        fail("Method filterList not found");
+
     }
 
-}
     @Test
     public void filterListTest_2() {
         List<Article> articles = new ArrayList<>();
@@ -203,7 +197,7 @@ public void filterListTest_1() {
             if (actualList == null) {
                 fail("filterList returned null!");
             } else {
-                assertEquals(0, actualList.size(),"return list is not of expected size");
+                assertEquals(0, actualList.size(), "return list is not of expected size");
 
             }
         } catch (Exception e) {
@@ -211,6 +205,7 @@ public void filterListTest_1() {
         }
 
     }
+
     @Test
     public void filterListTest_3() {
         List<Article> articles = new ArrayList<>();

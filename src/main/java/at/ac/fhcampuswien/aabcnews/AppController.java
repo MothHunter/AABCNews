@@ -41,10 +41,10 @@ public class AppController {
         listView.getItems().clear();
         for (int i = 0; i < selectedList.size(); i++) {
             Text item = new Text(selectedList.get(i).toString());
-            item.setWrappingWidth(listView.getWidth()-LIST_TEXT_BORDER);
+            item.setWrappingWidth(listView.getWidth() - LIST_TEXT_BORDER);
             listView.getItems().add(item);
         }
-        countLabel.setText("I found " + selectedList.size()  + " article(s).");
+        countLabel.setText("I found " + selectedList.size() + " article(s).");
     }
 
     @FXML
