@@ -2,6 +2,7 @@ package at.ac.fhcampuswien.aabcnews;
 
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,6 +23,7 @@ public class AppControllerTest {
 
 
     @Test
+    @DisplayName("Testing if method setArticles exists and has correct signature")
     public void setArticlesTest() {
         try {
             Method m = AppController.class.getMethod("setArticles", List.class);
@@ -31,6 +33,7 @@ public class AppControllerTest {
     }
 
     @Test
+    @DisplayName("Testing if getArticleCount exists and returns non-negative value")
     public void getArticleCountTest_1() {
         try {
             Method m = AppController.class.getMethod("getArticleCount");
@@ -41,17 +44,20 @@ public class AppControllerTest {
     }
 
     @Test
+    @DisplayName("Testing if getArticleCount returns 0 when list of articles is null")
     public void getArticleCountTest_2() {
         try {
             appController.setArticles(null);
             assertEquals(0, appController.getArticleCount(),
-                    "Return value was not 0 when Articles was set to null");
+                    "Return value was not 0 when articles was set to null");
         } catch (Exception e) {
             fail("Method getArticleCount not found");
         }
 
     }
+
     @Test
+    @DisplayName("Testing if getArticleCount returns correct number of articles")
     public void getArticleCountTest_3() {
         try {
             List<Article> testList = new ArrayList<>();
@@ -61,12 +67,13 @@ public class AppControllerTest {
             appController.setArticles(testList);
             assertEquals(testList.size(), appController.getArticleCount(), "The number of articles in the list" +
                     "was not correct");
-        }catch (Exception e) {
+        } catch (Exception e) {
             fail("Method getArticleCount not found");
         }
     }
 
     @Test
+    @DisplayName("Testing if method getAllNewsBitcoin exists")
     public void getAllNewsBitcoinTest() {
         try {
             Method m = AppController.class.getMethod("getAllNewsBitcoin");
@@ -77,6 +84,7 @@ public class AppControllerTest {
 
 
     @Test
+    @DisplayName("Testing if method getTopHeadlinesAustria exists")
     public void getTopHeadlinesAustriaTest_1() {
         try {
             Method m = AppController.class.getMethod("getTopHeadlinesAustria");
@@ -86,132 +94,102 @@ public class AppControllerTest {
     }
 
     @Test
+    @DisplayName("Testing if getTopHeadlinesAustria has non-null return value when articles list is null")
     public void getTopHeadlinesAustriaTest_2() {
         try{
             appController.setArticles(null); //object from type AppController which can be used
             assertNotEquals(null,appController.getTopHeadlinesAustria(), //null =no object saved in ref.
                     "getTopHeadlinesAustria should never return null!");
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             fail("Method getTopHeadlinesAustria not found!");
         }
     }
 
 
-    //ob wir null zurückbekommen sondern ob die liste die wir testen länge 0 ... .size
-    //assertEquals...
-    // size...message...die rückgb list should be of the length. 0
     @Test
+    @DisplayName("Testing if getTopHeadlinesAustria returns list of size 0 when list of articles is null")
     public void getTopHeadlinesAustriaTest_3() {
-        try{
-            appController.setArticles(null); //object from type AppController which can be used
-            assertEquals(0,appController.getTopHeadlinesAustria().size(),
+        try {
+            appController.setArticles(null);
+            assertEquals(0, appController.getTopHeadlinesAustria().size(),
                     "the return value of the list should be of the length 0.");
 
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             fail("Method getTopHeadlinesAustria not found!");
         }
 
 
     }
+
     @Test
+    @DisplayName("Testing if getTopHeadlinesAustria returns the complete list of articles")
     public void getTopHeadlinesAustriaTest_4() {
         try {
-         List<Article> testList  = new ArrayList<>();
-         testList.add(new Article("a","f"));
-         testList.add(new Article("w","k"));
+            List<Article> testList = new ArrayList<>();
+            testList.add(new Article("a", "f"));
+            testList.add(new Article("w", "k"));
             appController.setArticles(testList);
             assertTrue(testList.equals(appController.getTopHeadlinesAustria()),
                     "return List is not the same the set list");
 
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             fail("Not found!");
         }
     }
 
 
-
-
-@Test
-public void getAllNewsBitcoinTest_1(){
-        try{
+    @Test
+    @DisplayName("Testing if getAllNewsBitcoin has non-null return value when articles list is null")
+    public void getAllNewsBitcoinTest_1() {
+        try {
             appController.setArticles(null);
-            assertNotEquals(null,appController.getAllNewsBitcoin(),
-                    " getAllNewsBitcoin should never return null"); // null= reference not set to an instance
+            assertNotEquals(null, appController.getAllNewsBitcoin(),
+                    " getAllNewsBitcoin should never return null");
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             fail("Not found!");
         }
-}
-
-
+    }
 
 
     @Test
-    public void getAllNewsBitcoinTest_2(){
-        try{
-            List<Article> testList  = new ArrayList<>();
-            testList.add(new Article("a","f"));
-            testList.add(new Article("w","k"));
+    @DisplayName("Testing if getAllNewsBitcoin returns the expected articles")
+    public void getAllNewsBitcoinTest_2() {
+        try {
+            List<Article> testList = new ArrayList<>();
+            testList.add(new Article("a", "f"));
+            testList.add(new Article("w", "k"));
             testList.add(new Article("bitpanda", "bitcoin is reaching its peak!"));
-            //testList should be set as the appController list
-            // we expect a list with one entry (bitpanda ...)
             List<Article> expectedList = new ArrayList<>();
             expectedList.add(testList.get(2));
 
             appController.setArticles(testList);
 
-           assertEquals(expectedList,appController.getAllNewsBitcoin(),
-            "The returned list was not correct!");
-            //
+            assertEquals(expectedList, appController.getAllNewsBitcoin(),
+                    "The returned list was not correct!");
 
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             fail("Not found!");
 
         }
 
     }
 
-@Test
-public void filterListTest_1() {
-    List<Article> articles = new ArrayList<>();
-    articles.add(new Article("A", "This is a1"));
-    articles.add(new Article("B", "This is b1"));
-    articles.add(new Article("C", "These are c1"));
-    articles.add(new Article("D", "These are d1"));
-    try {
-        List<Article> actualList = AppController.filterList("this", articles); // es wird die gefilterte Liste
-        // in actualList gespeichert
-        if (actualList == null) {
-            fail("filterList returned null!");
-        } else {
-            assertEquals(2, actualList.size(),"return list is not of expected size");
-
-        }
-    } catch (Exception e) {
-        fail("Method filterList not found");
-    }
-
-}
     @Test
-    public void filterListTest_2() {
+    @DisplayName("Testing if filterList returns the expected number of articles")
+    public void filterListTest_1() {
         List<Article> articles = new ArrayList<>();
         articles.add(new Article("A", "This is a1"));
         articles.add(new Article("B", "This is b1"));
         articles.add(new Article("C", "These are c1"));
         articles.add(new Article("D", "These are d1"));
         try {
-            List<Article> actualList = AppController.filterList("java", articles); // es wird die gefilterte Liste
-            // in actualList gespeichert
+            List<Article> actualList = AppController.filterList("this", articles);
             if (actualList == null) {
                 fail("filterList returned null!");
             } else {
-                assertEquals(0, actualList.size(),"return list is not of expected size");
+                assertEquals(2, actualList.size(), "return list is not of expected size");
 
             }
         } catch (Exception e) {
@@ -219,7 +197,31 @@ public void filterListTest_1() {
         }
 
     }
+
     @Test
+    @DisplayName("Testing if filterList returns an empty list for a query not contained in articles list")
+    public void filterListTest_2() {
+        List<Article> articles = new ArrayList<>();
+        articles.add(new Article("A", "This is a1"));
+        articles.add(new Article("B", "This is b1"));
+        articles.add(new Article("C", "These are c1"));
+        articles.add(new Article("D", "These are d1"));
+        try {
+            List<Article> actualList = AppController.filterList("java", articles);
+            if (actualList == null) {
+                fail("filterList returned null!");
+            } else {
+                assertEquals(0, actualList.size(), "return list is not of expected size");
+
+            }
+        } catch (Exception e) {
+            fail("Method filterList not found");
+        }
+
+    }
+
+    @Test
+    @DisplayName("Testing if filterList correctly returns the article matching the query")
     public void filterListTest_3() {
         List<Article> articles = new ArrayList<>();
         articles.add(new Article("A", "This is a1"));
@@ -227,8 +229,7 @@ public void filterListTest_1() {
         articles.add(new Article("C", "These are c1"));
         articles.add(new Article("D", "These are d1"));
         try {
-            List<Article> actualList = AppController.filterList("c1", articles); // es wird die gefilterte Liste
-            // in actualList gespeichert
+            List<Article> actualList = AppController.filterList("c1", articles);
             if (actualList == null) {
                 fail("filterList returned null!");
             } else {
