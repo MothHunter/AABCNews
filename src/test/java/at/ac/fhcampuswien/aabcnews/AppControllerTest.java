@@ -185,7 +185,7 @@ public void filterListTest_1() {
     articles.add(new Article("C", "These are c1"));
     articles.add(new Article("D", "These are d1"));
     try {
-        List<Article> actualList = appController.filterList("this", articles); // es wird die gefilterte Liste
+        List<Article> actualList = AppController.filterList("this", articles); // es wird die gefilterte Liste
         // in actualList gespeichert
         if (actualList == null) {
             fail("filterList returned null!");
@@ -206,7 +206,7 @@ public void filterListTest_1() {
         articles.add(new Article("C", "These are c1"));
         articles.add(new Article("D", "These are d1"));
         try {
-            List<Article> actualList = appController.filterList("java", articles); // es wird die gefilterte Liste
+            List<Article> actualList = AppController.filterList("java", articles); // es wird die gefilterte Liste
             // in actualList gespeichert
             if (actualList == null) {
                 fail("filterList returned null!");
@@ -227,7 +227,7 @@ public void filterListTest_1() {
         articles.add(new Article("C", "These are c1"));
         articles.add(new Article("D", "These are d1"));
         try {
-            List<Article> actualList = appController.filterList("c1", articles); // es wird die gefilterte Liste
+            List<Article> actualList = AppController.filterList("c1", articles); // es wird die gefilterte Liste
             // in actualList gespeichert
             if (actualList == null) {
                 fail("filterList returned null!");
