@@ -2,19 +2,17 @@ package at.ac.fhcampuswien.aabcnews;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class AppController {
     String query;
     private List<Article> articles;
+    private static final int LIST_TEXT_BORDER = 20;
 
     private static final String EXIT_MESSAGE = "Thank you for using ABCD News!";
     private static final String EXIT_MESSAGE_2 = "Hope to see you again soon!";
@@ -22,7 +20,7 @@ public class AppController {
     @FXML
     private ChoiceBox<String> choiceBox;
     @FXML
-    private ListView<String> listView;
+    private ListView<Text> listView;
 
     @FXML
     private Button quitButton;
@@ -42,8 +40,9 @@ public class AppController {
 
         listView.getItems().clear();
         for (int i = 0; i < selectedList.size(); i++) {
-
-            listView.getItems().add(selectedList.get(i).toString());
+            Text item = new Text(selectedList.get(i).toString());
+            item.setWrappingWidth(listView.getWidth()-LIST_TEXT_BORDER);
+            listView.getItems().add(item);
         }
         countLabel.setText("I found " + selectedList.size()  + " article(s).");
     }

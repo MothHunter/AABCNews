@@ -240,6 +240,4 @@ public void filterListTest_1() {
             fail("Method filterList not found");
         }
     }
-
 }
-
