@@ -2,6 +2,7 @@ package at.ac.fhcampuswien.aabcnews;
 
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,6 +23,7 @@ public class AppControllerTest {
 
 
     @Test
+    @DisplayName("Testing if method setArticles exists and has correct signature")
     public void setArticlesTest() {
         try {
             Method m = AppController.class.getMethod("setArticles", List.class);
@@ -31,6 +33,7 @@ public class AppControllerTest {
     }
 
     @Test
+    @DisplayName("Testing if getArticleCount exists and returns non-negative value")
     public void getArticleCountTest_1() {
         try {
             Method m = AppController.class.getMethod("getArticleCount");
@@ -41,11 +44,12 @@ public class AppControllerTest {
     }
 
     @Test
+    @DisplayName("Testing if getArticleCount returns 0 when list of articles is null")
     public void getArticleCountTest_2() {
         try {
             appController.setArticles(null);
             assertEquals(0, appController.getArticleCount(),
-                    "Return value was not 0 when Articles was set to null");
+                    "Return value was not 0 when articles was set to null");
         } catch (Exception e) {
             fail("Method getArticleCount not found");
         }
@@ -53,6 +57,7 @@ public class AppControllerTest {
     }
 
     @Test
+    @DisplayName("Testing if getArticleCount returns correct number of articles")
     public void getArticleCountTest_3() {
         try {
             List<Article> testList = new ArrayList<>();
@@ -68,6 +73,7 @@ public class AppControllerTest {
     }
 
     @Test
+    @DisplayName("Testing if method getAllNewsBitcoin exists")
     public void getAllNewsBitcoinTest() {
         try {
             Method m = AppController.class.getMethod("getAllNewsBitcoin");
@@ -78,6 +84,7 @@ public class AppControllerTest {
 
 
     @Test
+    @DisplayName("Testing if method getTopHeadlinesAustria exists")
     public void getTopHeadlinesAustriaTest_1() {
         try {
             Method m = AppController.class.getMethod("getTopHeadlinesAustria");
@@ -87,6 +94,7 @@ public class AppControllerTest {
     }
 
     @Test
+    @DisplayName("Testing if getTopHeadlinesAustria has non-null return value when articles list is null")
     public void getTopHeadlinesAustriaTest_2() {
         try {
             appController.setArticles(null);
@@ -99,6 +107,7 @@ public class AppControllerTest {
 
 
     @Test
+    @DisplayName("Testing if getTopHeadlinesAustria returns list of size 0 when list of articles is null")
     public void getTopHeadlinesAustriaTest_3() {
         try {
             appController.setArticles(null);
@@ -113,6 +122,7 @@ public class AppControllerTest {
     }
 
     @Test
+    @DisplayName("Testing if getTopHeadlinesAustria returns the complete list of articles")
     public void getTopHeadlinesAustriaTest_4() {
         try {
             List<Article> testList = new ArrayList<>();
@@ -129,6 +139,7 @@ public class AppControllerTest {
 
 
     @Test
+    @DisplayName("Testing if getAllNewsBitcoin has non-null return value when articles list is null")
     public void getAllNewsBitcoinTest_1() {
         try {
             appController.setArticles(null);
@@ -142,6 +153,7 @@ public class AppControllerTest {
 
 
     @Test
+    @DisplayName("Testing if getAllNewsBitcoin returns the expected articles")
     public void getAllNewsBitcoinTest_2() {
         try {
             List<Article> testList = new ArrayList<>();
@@ -165,6 +177,7 @@ public class AppControllerTest {
     }
 
     @Test
+    @DisplayName("Testing if filterList returns the expected number of articles")
     public void filterListTest_1() {
         List<Article> articles = new ArrayList<>();
         articles.add(new Article("A", "This is a1"));
@@ -186,6 +199,7 @@ public class AppControllerTest {
     }
 
     @Test
+    @DisplayName("Testing if filterList returns an empty list for a query not contained in articles list")
     public void filterListTest_2() {
         List<Article> articles = new ArrayList<>();
         articles.add(new Article("A", "This is a1"));
@@ -207,6 +221,7 @@ public class AppControllerTest {
     }
 
     @Test
+    @DisplayName("Testing if filterList correctly returns the article matching the query")
     public void filterListTest_3() {
         List<Article> articles = new ArrayList<>();
         articles.add(new Article("A", "This is a1"));
