@@ -46,7 +46,7 @@ public class NewsApi {
             return ns;
         }
     }
-    public NewsResponse everything(LANGUAGE language) throws IOException {
+    public NewsResponse requestEverything(LANGUAGE language) throws IOException {
         language.name();
         HttpUrl.Builder urlBuilder
                 = HttpUrl.parse(BASE_URL + "everything?").newBuilder();

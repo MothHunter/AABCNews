@@ -86,11 +86,9 @@ public class AppController {
     }
 
     public List<Article> getTopHeadlinesAustria() {
- List<Article> top =
-            return articles;
+  NewsApi list = new NewsApi();
+            return (List<Article>) list.deserialization("corona");
         }
-
-    }
 
     public List<Article> getAllNewsBitcoin() {
         if (articles == null) {
