@@ -86,11 +86,7 @@ public class AppController {
     }
 
     public List<Article> getTopHeadlinesAustria() {
-        if (articles == null) {
-            List<Article> emptyList = new ArrayList<>();
-
-            return emptyList;
-        } else {
+ List<Article> top =
             return articles;
         }
 
