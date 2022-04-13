@@ -3,7 +3,8 @@ module at.ac.fhcampuswien.aabcnews {
     requires javafx.fxml;
 
     requires org.controlsfx.controls;
-
-    opens at.ac.fhcampuswien.aabcnews to javafx.fxml;
+    requires com.google.gson;
+    requires okhttp3;
     exports at.ac.fhcampuswien.aabcnews;
+    opens at.ac.fhcampuswien.aabcnews to com.google.gson, javafx.fxml;
 }

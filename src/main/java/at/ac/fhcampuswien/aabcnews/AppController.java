@@ -86,25 +86,23 @@ public class AppController {
     }
 
     public List<Article> getTopHeadlinesAustria() {
-        if (articles == null) {
-            List<Article> emptyList = new ArrayList<>();
-
-            return emptyList;
-        } else {
-            return articles;
+        NewsResponse response = NewsApi.getInstance().requestTopNews(NewsApi.Country.at);
+        if (response != null && response.getStatus().toLowerCase().equals("ok") && response.getArticles() != null) {
+            return response.getArticles();
         }
-
+        else {
+            return new ArrayList<>();
+        }
     }
 
     public List<Article> getAllNewsBitcoin() {
-        if (articles == null) {
-            List<Article> emptyList = new ArrayList<>();
-            return emptyList;
-        } else {
-            return filterList("bitcoin", articles); //wir filtern das wort bitcoin aus den artikel
+        NewsResponse response = NewsApi.getInstance().requestAllNews("bitcoin", NewsApi.Language.en);
+        if (response != null && response.getStatus().toLowerCase().equals("ok") && response.getArticles() != null) {
+            return response.getArticles();
         }
-
-
+        else {
+            return new ArrayList<>();
+        }
     }
 
     protected static List<Article> filterList(String query, List<Article> articles) {

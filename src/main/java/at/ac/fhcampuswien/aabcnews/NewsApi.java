@@ -1,10 +1,28 @@
 package at.ac.fhcampuswien.aabcnews;
 
+import com.google.gson.Gson;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+import java.util.List;
 
 public class NewsApi {
+    public enum Category {business, entertainment, general, health, science, sports, technology}
+    public enum Country {ae, ar, at, au, be, bg, br, ca, ch, cn, co, cu, cz, de, eg, fr, gb, gr,
+        hk, hu, id, ie, il, in, it, jp, kr, lt, lv, ma, mx, my, ng, nl, no, nz, ph, pl, pt, ro, rs,
+        ru, sa, se, sg, si, sk, th, tr, tw, ua, us, ve, za}
+    public enum Language {ar, de, en, es, fr, he, it, nl, no, pt, ru, se, ud, zh}
+    public enum SortBy {relevancy, popularity, publishedAt}
+
+    private static final String root = "https://newsapi.org/v2/";
+    private static final String apiKey = "0eb47479ee9b40829604c68ff2adb858";
     private static NewsApi instance;
+    private OkHttpClient client;
 
     private NewsApi(){
+        client = new OkHttpClient();
     }
 
     public static NewsApi getInstance() {
@@ -14,4 +32,47 @@ public class NewsApi {
         return instance;
     }
 
+    public NewsResponse requestAllNews(String query, Language language){
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(root).newBuilder();
+        urlBuilder.addPathSegment("everything");
+
+        urlBuilder.addQueryParameter("q", query);
+        urlBuilder.addQueryParameter("language", language.toString());
+
+        urlBuilder.addQueryParameter("apiKey", apiKey);
+        System.out.println(urlBuilder.build());
+
+        Request request = new Request.Builder().url(urlBuilder.build()).build();
+
+        try (Response response = client.newCall(request).execute()) {
+            Gson gson = new Gson();
+            NewsResponse newsResponse = gson.fromJson(response.body().string(), NewsResponse.class);
+            return newsResponse;
+        } catch (Exception e) {
+            System.out.println("The http request failed!");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public NewsResponse requestTopNews(Country country){
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(root).newBuilder();
+        urlBuilder.addPathSegment("top-headlines");
+
+        urlBuilder.addQueryParameter("country", country.toString());
+
+        urlBuilder.addQueryParameter("apiKey", apiKey);
+
+        Request request = new Request.Builder().url(urlBuilder.build()).build();
+
+        try (Response response = client.newCall(request).execute()) {
+            Gson gson = new Gson();
+            NewsResponse newsResponse = gson.fromJson(response.body().string(), NewsResponse.class);
+            return newsResponse;
+        } catch (Exception e) {
+            System.out.println("The http request failed!");
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
