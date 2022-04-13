@@ -86,19 +86,15 @@ public class AppController {
     }
 
     public List<Article> getTopHeadlinesAustria() {
-  NewsApi list = new NewsApi();
-            return (List<Article>) list.deserialization("corona");
+  NewsApi newsApi = new NewsApi();
+  NewsResponse newsResponse = newsApi.requestTopHeadlines(NewsApi.COUNTRY.at);
+            return newsResponse.getArticles();
         }
 
     public List<Article> getAllNewsBitcoin() {
-        if (articles == null) {
-            List<Article> emptyList = new ArrayList<>();
-            return emptyList;
-        } else {
-            return filterList("bitcoin", articles); //wir filtern das wort bitcoin aus den artikel
-        }
-
-
+        NewsApi newsApi = new NewsApi();
+        NewsResponse newsResponse = newsApi.requestEverything(NewsApi.LANGUAGE.de);
+        return newsResponse.getArticles(); // iau din news Response din obiectul JSON tradus doar articles
     }
 
     protected static List<Article> filterList(String query, List<Article> articles) {
