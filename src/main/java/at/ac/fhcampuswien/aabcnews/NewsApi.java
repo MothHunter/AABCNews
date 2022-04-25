@@ -49,4 +49,30 @@ public class NewsApi {
             return null;
         }
     }
+
+    public NewsResponse requestTopHeadlines(String country){
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(root).newBuilder();
+        urlBuilder.addPathSegment("top-headlines");
+
+        urlBuilder.addQueryParameter("country", country);
+
+        urlBuilder.addQueryParameter("apiKey", apiKey);
+
+        //nur zum testen!!
+        System.out.println(urlBuilder.build());
+
+        Request request = new Request.Builder().url(urlBuilder.build()).build();
+
+        try (Response response = client.newCall(request).execute()) {
+            Gson gson = new Gson();
+            String responseString = response.body().string();
+            System.out.println(responseString);
+            NewsResponse newsResponse = gson.fromJson(responseString, NewsResponse.class);
+            return newsResponse;
+        } catch (Exception e) {
+            System.out.println("The http request failed!");
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
