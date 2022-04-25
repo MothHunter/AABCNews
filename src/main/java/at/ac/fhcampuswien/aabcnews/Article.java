@@ -1,12 +1,23 @@
 package at.ac.fhcampuswien.aabcnews;
 
+import java.lang.reflect.Array;
+
 public class Article {
+
     private String author;
     private String title;
+    private String description;
+    private String url;
+    private String urlToImage;
+    private String publishedAt;
+    private String content;
+
 
     public Article(String author,String title){
         this.author = author;
         this.title = title;
+
+
     }
 
     public String getAuthor() {
