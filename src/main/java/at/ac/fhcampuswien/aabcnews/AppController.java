@@ -29,6 +29,9 @@ public class AppController {
 
     @FXML
     protected void onGetNewsButtonClick() {
+        // nur zum testen!!
+        NewsApi.getInstance().requestAllNews("bitcoin", "de");
+
         String choice = choiceBox.getValue();
         List<Article> selectedList;
         if (choice.equals("All News Bitcoin")) {
