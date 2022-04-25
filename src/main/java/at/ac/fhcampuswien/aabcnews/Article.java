@@ -12,6 +12,8 @@ public class Article {
     private String publishedAt;
     private String content;
 
+    Source source = new Source();
+
 
     public Article(String author,String title){
         this.author = author;
