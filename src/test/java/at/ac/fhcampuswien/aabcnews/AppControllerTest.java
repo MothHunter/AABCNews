@@ -13,20 +13,20 @@ import java.util.List;
 
 public class AppControllerTest {
 
-    AppController appController;
+    AppController appController;//referenz
 
 
     @BeforeEach
     public void initialize() {
-        appController = new AppController();
+        appController = new AppController();// great an instance of AppController class
     }
 
 
     @Test
-    @DisplayName("Testing if method setArticles exists and has correct signature")
+    @DisplayName("Testing if method setArticles exists and has correct signature")//ob überhaupt exsisiert
     public void setArticlesTest() {
         try {
-            Method m = AppController.class.getMethod("setArticles", List.class);
+            Method m = AppController.class.getMethod("setArticles", List.class);//getMethod eine methode welche andere mathoden als Rückgabe gibt
         } catch (Exception e) {
             fail("Method setArticles not found or does not take correct parameters!");
         }
@@ -136,6 +136,7 @@ public class AppControllerTest {
             fail("Not found!");
         }
     }
+
 
 
     @Test

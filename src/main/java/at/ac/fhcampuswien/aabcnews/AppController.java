@@ -11,11 +11,12 @@ import java.util.List;
 
 public class AppController {
     String query;
-    private List<Article> articles;
+    private List<Article> articles;// refrenz name ohne wert aber objeckt hat wert
     private static final int LIST_TEXT_BORDER = 20;
 
     private static final String EXIT_MESSAGE = "Thank you for using ABCD News!";
     private static final String EXIT_MESSAGE_2 = "Hope to see you again soon!";
+    NewsApi newsApi;
 
     @FXML
     private ChoiceBox<String> choiceBox;
@@ -29,6 +30,7 @@ public class AppController {
 
     @FXML
     protected void onGetNewsButtonClick() {
+
         String choice = choiceBox.getValue();
         List<Article> selectedList;
         if (choice.equals("All News Bitcoin")) {
@@ -60,6 +62,7 @@ public class AppController {
 
     public AppController() {
         this.articles = generateMockList();
+        newsApi = new NewsApi();
     }
 
     /*  initialize ist eine von javaFX definierte Methode, die aufgerufen wird nachdem der Constructor fertig ist und
@@ -76,7 +79,7 @@ public class AppController {
 
     public void setArticles(List<Article> articles) {
         this.articles = articles;
-    }
+    }//innerhalb unser seter methode wir haben referenziert list<Article>
 
     public int getArticleCount() {
         if (articles == null) {
@@ -86,7 +89,7 @@ public class AppController {
     }
 
     public List<Article> getTopHeadlinesAustria() {
-        if (articles == null) {
+       /* if (articles == null) {
             List<Article> emptyList = new ArrayList<>();
 
             return emptyList;
@@ -94,15 +97,37 @@ public class AppController {
             return articles;
         }
 
+        */
+       NewsResponse newsResponse= newsApi.giveGetTopHeadLinesAustria("at");
+       if (newsResponse== null){
+           return new ArrayList<>();
+       }
+       else {
+           return newsResponse.getArticles();
+       }
+
     }
 
     public List<Article> getAllNewsBitcoin() {
-        if (articles == null) {
+        /*if (articles == null) {
             List<Article> emptyList = new ArrayList<>();
             return emptyList;
         } else {
-            return filterList("bitcoin", articles); //wir filtern das wort bitcoin aus den artikel
+
+            return articles;  //wir filtern das wort bitcoin aus den artikel
         }
+
+         */
+       NewsResponse newsResponse = newsApi.giveAllArticles("bitcoin");
+       if (newsResponse==null){
+
+           return new ArrayList<>();
+       }
+       else {
+           return newsResponse.getArticles();
+       }
+
+
 
 
     }
