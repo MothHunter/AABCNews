@@ -9,6 +9,7 @@ public class Article {
     private String publishedAt;
     private String content;
 
+    private Source source;
 
     public Article(String author, String title) {
         this.author = author;
@@ -22,6 +23,7 @@ public class Article {
     public String getTitle() {
         return title;
     }
+
     public String getDescription() {
         return description;
     }
@@ -40,6 +42,10 @@ public class Article {
 
     public String getContent() {
         return content;
+    }
+
+    public Source source() {
+        return source;
     }
 
     @Override
