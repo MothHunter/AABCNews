@@ -16,7 +16,7 @@ public class AppController {
 
     private static final String EXIT_MESSAGE = "Thank you for using ABCD News!";
     private static final String EXIT_MESSAGE_2 = "Hope to see you again soon!";
-
+    NewsApi newsApi;
     @FXML
     private ChoiceBox<String> choiceBox;
     @FXML
@@ -100,11 +100,12 @@ public class AppController {
     }
 
     public List<Article> getAllNewsBitcoin() {
-        if (articles == null) {
-            List<Article> emptyList = new ArrayList<>();
-            return emptyList;
+        NewsResponse newsResponse=newsApi.requestAllNews("corona","dt");
+        if ( newsResponse== null) {
+            return new ArrayList<>();
         } else {
-            return filterList("bitcoin", articles); //wir filtern das wort bitcoin aus den artikel
+            return newsResponse.getArticles();
+
         }
 
 
