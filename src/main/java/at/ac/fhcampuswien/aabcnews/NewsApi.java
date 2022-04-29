@@ -36,23 +36,8 @@ public class NewsApi {
 
         urlBuilder.addQueryParameter("q", query);
         urlBuilder.addQueryParameter("language", language.toString());
+        return handleRequest(urlBuilder);
 
-        urlBuilder.addQueryParameter("apiKey", apiKey);
-
-
-
-        Request request = new Request.Builder().url(urlBuilder.build()).build();
-
-        try (Response response = client.newCall(request).execute()) {
-            Gson gson = new Gson();
-            String responseString = response.body().string();
-            NewsResponse newsResponse = gson.fromJson(responseString, NewsResponse.class);
-            return newsResponse;
-        } catch (Exception e) {
-            System.out.println("The http request failed!");
-            e.printStackTrace();
-            return null;
-        }
     }
 
     public NewsResponse requestTopHeadlines(String country){
@@ -61,7 +46,11 @@ public class NewsApi {
 
         urlBuilder.addQueryParameter("country", country);
 
+       return handleRequest(urlBuilder);
+    }
+    public NewsResponse handleRequest(HttpUrl.Builder urlBuilder){
         urlBuilder.addQueryParameter("apiKey", apiKey);
+
 
 
         Request request = new Request.Builder().url(urlBuilder.build()).build();
@@ -76,5 +65,6 @@ public class NewsApi {
             e.printStackTrace();
             return null;
         }
+
     }
 }
