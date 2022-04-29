@@ -30,12 +30,12 @@ public class NewsApi {
         return instance;
     }
 
-    public NewsResponse requestAllNews(String query, String language){
+    public NewsResponse requestAllNews(String query, Language language){
         HttpUrl.Builder urlBuilder = HttpUrl.parse(root).newBuilder();
         urlBuilder.addPathSegment("everything");
 
         urlBuilder.addQueryParameter("q", query);
-        urlBuilder.addQueryParameter("language", language);
+        urlBuilder.addQueryParameter("language", language.toString());
 
         urlBuilder.addQueryParameter("apiKey", apiKey);
 

@@ -16,7 +16,6 @@ public class AppController {
 
     private static final String EXIT_MESSAGE = "Thank you for using ABCD News!";
     private static final String EXIT_MESSAGE_2 = "Hope to see you again soon!";
-    NewsApi newsApi;
     @FXML
     private ChoiceBox<String> choiceBox;
     @FXML
@@ -30,7 +29,7 @@ public class AppController {
     @FXML
     protected void onGetNewsButtonClick() {
         // nur zum testen!!
-        NewsApi.getInstance().requestAllNews("bitcoin", "de");
+        NewsApi.getInstance().requestAllNews("bitcoin", NewsApi.Language.en);
 
         String choice = choiceBox.getValue();
         List<Article> selectedList;
@@ -90,7 +89,7 @@ public class AppController {
 
     public List<Article> getTopHeadlinesAustria() {
 
-        NewsResponse newsResponse = newsApi.requestTopHeadlines("AT");
+        NewsResponse newsResponse = NewsApi.getInstance().requestTopHeadlines("AT");
         if (newsResponse == null) {
             return new ArrayList<>();
         } else {
@@ -101,7 +100,7 @@ public class AppController {
     }
 
     public List<Article> getAllNewsBitcoin() {
-        NewsResponse newsResponse = newsApi.requestAllNews("corona", "dt");
+        NewsResponse newsResponse = NewsApi.getInstance().requestAllNews("bitcoin", NewsApi.Language.de);
         if (newsResponse == null) {
             return new ArrayList<>();
         } else {
