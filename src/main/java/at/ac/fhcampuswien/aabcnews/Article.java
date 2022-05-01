@@ -44,7 +44,7 @@ public class Article {
         return content;
     }
 
-    public Source source() {
+    public Source getSource() {
         return source;
     }
 
@@ -52,8 +52,6 @@ public class Article {
     public String toString() {
         return "Title: " + title + ", " +
                 "Author: " + author;
-
-
     }
 }
 
