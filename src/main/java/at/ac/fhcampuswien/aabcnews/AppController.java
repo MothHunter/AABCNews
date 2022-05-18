@@ -7,7 +7,10 @@ import javafx.stage.Stage;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class AppController {
     String query;
@@ -83,6 +86,41 @@ public class AppController {
             return 0;
         }
         return articles.size();
+    }
+
+    /*
+        Which provider (= source) delivers the most articles?
+        Which author has the longest name?
+        How many articles come from the source "New York Times"?
+        Which articles have a title that consists of less than 15 characters?
+        Sort the articles by the length of their description in ascending order. If the
+        descriptions of articles are of the same length, the sorting should be alphabetical.
+     */
+
+    public Source getSourceWithMostArticles() {
+        List<Article> topArticles = getTopHeadlinesAustria();
+        Source sourceWithMostArticles = topArticles.stream().collect(Collectors.groupingBy(Article::getSource, Collectors.counting()))
+                .entrySet().stream().max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey).orElse(null);
+        return sourceWithMostArticles;
+    }
+
+    public String getAuthorWithLongestName() {
+        List<Article> topArticles = getTopHeadlinesAustria();
+
+        return null;
+    }
+
+    public long getCountOfNewYorkTimesSource() {
+        List<Article> bitcoinArticles = getAllNewsBitcoin();
+        long count = bitcoinArticles.stream().filter(a -> a.getSource().getName().equalsIgnoreCase("New York Times")).count();
+        return count;
+    }
+
+    public List<Article> getArticlesWithTitleLessThan15Chars() {
+        List<Article> topArticles = getTopHeadlinesAustria();
+        List<Article> list = topArticles.stream().filter(a -> a.getTitle().length() < 15).collect(Collectors.toList());
+        return list;
     }
 
     public List<Article> getTopHeadlinesAustria() {
