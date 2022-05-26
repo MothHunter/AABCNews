@@ -5,11 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class AppController {
@@ -28,25 +24,41 @@ public class AppController {
     private Button quitButton;
     @FXML
     private Label countLabel;
+    @FXML
+    private Label resultLabel;
 
     @FXML
-    protected void onGetNewsButtonClick() {
+    protected void onGetNewsButtonClick() throws NewsApiException {
 
         String choice = choiceBox.getValue();
-        List<Article> selectedList;
+        List<Article> selectedList = new ArrayList<>();
         if (choice.equals("All News Bitcoin")) {
             selectedList = getAllNewsBitcoin();
 
-        } else {
+        } else if  (choice.equals("Top News Austria")){
             selectedList = getTopHeadlinesAustria();
+        } else if  (choice.equals("Source with Most Articles")){
+            Source source = getSourceWithMostArticles();
+            resultLabel.setText("Src with most articles: " + source.getName());
+        } else if  (choice.equals("Author with the Longest Name")){
+            String author = getAuthorWithLongestName();
+            resultLabel.setText("Author: " + author);
+        } else if  (choice.equals("Count of New York Times")){
+            Long count = getCountOfNewYorkTimesSource();
+            resultLabel.setText("Count: " + count);
+        } else {
+            selectedList = getArticlesWithTitleLessThan15Chars();
         }
 
         listView.getItems().clear();
-        for (int i = 0; i < selectedList.size(); i++) {
-            Text item = new Text(selectedList.get(i).toString());
-            item.setWrappingWidth(listView.getWidth() - LIST_TEXT_BORDER);
-            listView.getItems().add(item);
+        if(selectedList != null && !selectedList.isEmpty()) {
+            for (int i = 0; i < selectedList.size(); i++) {
+                Text item = new Text(selectedList.get(i).toString());
+                item.setWrappingWidth(listView.getWidth() - LIST_TEXT_BORDER);
+                listView.getItems().add(item);
+            }
         }
+
         countLabel.setText("I found " + selectedList.size() + " article(s).");
     }
 
@@ -74,6 +86,10 @@ public class AppController {
     public void initialize() {
         choiceBox.getItems().add("All News Bitcoin"); // gets list of items and adds a new one
         choiceBox.getItems().add("Top News Austria");
+        choiceBox.getItems().add("Source with Most Articles");
+        choiceBox.getItems().add("Author with the Longest Name");
+        choiceBox.getItems().add("Count of New York Times");
+        choiceBox.getItems().add("Articles with Title less than 15 Chars");
         choiceBox.getSelectionModel().select(1); // sets the item at position 1 as the one selected at the beginning
     }
 
@@ -105,10 +121,10 @@ public class AppController {
         return sourceWithMostArticles;
     }
 
-    public String getAuthorWithLongestName() {
+    public String getAuthorWithLongestName() throws NewsApiException {
         List<Article> topArticles = getTopHeadlinesAustria();
-
-        return null;
+        Optional<String> authorWithLongestName = topArticles.stream().map(Article::getAuthor).max(Comparator.comparing(String::length));
+        return authorWithLongestName.orElseThrow(() -> new NewsApiException("There are no articles in the list"));
     }
 
     public long getCountOfNewYorkTimesSource() {
@@ -141,7 +157,6 @@ public class AppController {
             return new ArrayList<>();
         } else {
             return newsResponse.getArticles();
-
         }
 
 

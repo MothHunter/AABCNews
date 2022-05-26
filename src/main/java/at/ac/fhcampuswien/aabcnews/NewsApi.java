@@ -1,10 +1,13 @@
 package at.ac.fhcampuswien.aabcnews;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
+import java.io.IOException;
 
 public class NewsApi {
     public enum Category {business, entertainment, general, health, science, sports, technology}
@@ -71,8 +74,12 @@ public class NewsApi {
             }
             NewsResponse newsResponse = gson.fromJson(responseString, NewsResponse.class);
             return newsResponse;
-        } catch (Exception e) {
-            System.out.println("The http request failed!");
+        } catch (IOException e) {
+            System.out.println("The call to the news api couldn't be done");
+            e.printStackTrace();
+            return null;
+        } catch (JsonSyntaxException e) {
+            System.out.println("The json response can not be parsed to java object");
             e.printStackTrace();
             return null;
         }

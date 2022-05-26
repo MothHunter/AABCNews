@@ -23,6 +23,7 @@
                 <Button onAction="#onGetNewsButtonClick" style="-fx-background-color: #999e46;" prefHeight="30.0"
                         prefWidth="100.0" text="Get News"/>
                 <Label prefHeight="350"/>
+                <Label prefWidth="300.0" fx:id="resultLabel"/>
                 <Label prefWidth="200.0" fx:id="countLabel"/>
                 <Button fx:id="quitButton" mnemonicParsing="false" onAction="#onQuitButtonClick" text="Quit">
                 </Button>

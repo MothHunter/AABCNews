@@ -10,12 +10,18 @@ import java.io.IOException;
 public class App extends Application {
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("menu-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-        stage.setTitle("AABCD News");
-        stage.setScene(scene);
-        stage.show();
+        try {
+            Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+            stage.setTitle("AABCD News");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("The fxmlLoader can't load the page! Try again!");
+            System.out.println(e);
+        }
+
     }
 
 
