@@ -6,8 +6,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import java.util.List;
-
 public class NewsApi {
     public enum Category {business, entertainment, general, health, science, sports, technology}
     public enum Country {ae, ar, at, au, be, bg, br, ca, ch, cn, co, cu, cz, de, eg, fr, gb, gr,
@@ -15,7 +13,6 @@ public class NewsApi {
         ru, sa, se, sg, si, sk, th, tr, tw, ua, us, ve, za}
     public enum Language {ar, de, en, es, fr, he, it, nl, no, pt, ru, se, ud, zh}
     public enum SortBy {relevancy, popularity, publishedAt}
-
     private static final String root = "https://newsapi.org/v2/";
     private static final String apiKey = "0eb47479ee9b40829604c68ff2adb858";
     private static NewsApi instance;
@@ -38,41 +35,32 @@ public class NewsApi {
 
         urlBuilder.addQueryParameter("q", query);
         urlBuilder.addQueryParameter("language", language.toString());
-
-        urlBuilder.addQueryParameter("apiKey", apiKey);
-        System.out.println(urlBuilder.build());
-
-        Request request = new Request.Builder().url(urlBuilder.build()).build();
-
-        try (Response response = client.newCall(request).execute()) {
-            Gson gson = new Gson();
-            NewsResponse newsResponse = gson.fromJson(response.body().string(), NewsResponse.class);
-            return newsResponse;
-        } catch (Exception e) {
-            System.out.println("The http request failed!");
-            e.printStackTrace();
-            return null;
-        }
+        return handleRequest(urlBuilder);
     }
 
-    public NewsResponse requestTopNews(Country country){
+    public NewsResponse requestTopHeadlines(String country){
         HttpUrl.Builder urlBuilder = HttpUrl.parse(root).newBuilder();
         urlBuilder.addPathSegment("top-headlines");
 
-        urlBuilder.addQueryParameter("country", country.toString());
+        urlBuilder.addQueryParameter("country", country);
 
+       return handleRequest(urlBuilder);
+    }
+    public NewsResponse handleRequest(HttpUrl.Builder urlBuilder){
         urlBuilder.addQueryParameter("apiKey", apiKey);
 
         Request request = new Request.Builder().url(urlBuilder.build()).build();
 
         try (Response response = client.newCall(request).execute()) {
             Gson gson = new Gson();
-            NewsResponse newsResponse = gson.fromJson(response.body().string(), NewsResponse.class);
+            String responseString = response.body().string();
+            NewsResponse newsResponse = gson.fromJson(responseString, NewsResponse.class);
             return newsResponse;
         } catch (Exception e) {
             System.out.println("The http request failed!");
             e.printStackTrace();
             return null;
         }
+
     }
 }

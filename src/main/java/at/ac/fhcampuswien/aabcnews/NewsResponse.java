@@ -1,5 +1,4 @@
 package at.ac.fhcampuswien.aabcnews;
-
 import java.util.List;
 
 public class NewsResponse {
@@ -14,6 +13,7 @@ public class NewsResponse {
     public int getTotalResults() {
         return totalResults;
     }
+
     public List<Article> getArticles() {
         return articles;
     }

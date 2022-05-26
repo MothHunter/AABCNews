@@ -16,7 +16,6 @@ public class AppController {
 
     private static final String EXIT_MESSAGE = "Thank you for using ABCD News!";
     private static final String EXIT_MESSAGE_2 = "Hope to see you again soon!";
-
     @FXML
     private ChoiceBox<String> choiceBox;
     @FXML
@@ -29,6 +28,7 @@ public class AppController {
 
     @FXML
     protected void onGetNewsButtonClick() {
+
         String choice = choiceBox.getValue();
         List<Article> selectedList;
         if (choice.equals("All News Bitcoin")) {
@@ -41,10 +41,10 @@ public class AppController {
         listView.getItems().clear();
         for (int i = 0; i < selectedList.size(); i++) {
             Text item = new Text(selectedList.get(i).toString());
-            item.setWrappingWidth(listView.getWidth()-LIST_TEXT_BORDER);
+            item.setWrappingWidth(listView.getWidth() - LIST_TEXT_BORDER);
             listView.getItems().add(item);
         }
-        countLabel.setText("I found " + selectedList.size()  + " article(s).");
+        countLabel.setText("I found " + selectedList.size() + " article(s).");
     }
 
     @FXML
@@ -86,23 +86,27 @@ public class AppController {
     }
 
     public List<Article> getTopHeadlinesAustria() {
-        NewsResponse response = NewsApi.getInstance().requestTopNews(NewsApi.Country.at);
-        if (response != null && response.getStatus().toLowerCase().equals("ok") && response.getArticles() != null) {
-            return response.getArticles();
-        }
-        else {
+
+        NewsResponse newsResponse = NewsApi.getInstance().requestTopHeadlines("AT");
+        if (newsResponse == null) {
             return new ArrayList<>();
+        } else {
+
+            return newsResponse.getArticles();
         }
+
     }
 
     public List<Article> getAllNewsBitcoin() {
-        NewsResponse response = NewsApi.getInstance().requestAllNews("bitcoin", NewsApi.Language.en);
-        if (response != null && response.getStatus().toLowerCase().equals("ok") && response.getArticles() != null) {
-            return response.getArticles();
-        }
-        else {
+        NewsResponse newsResponse = NewsApi.getInstance().requestAllNews("bitcoin", NewsApi.Language.de);
+        if (newsResponse == null) {
             return new ArrayList<>();
+        } else {
+            return newsResponse.getArticles();
+
         }
+
+
     }
 
     protected static List<Article> filterList(String query, List<Article> articles) {
