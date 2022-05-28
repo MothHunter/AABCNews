@@ -40,6 +40,7 @@ public class AppController {
             }
         } catch (NewsApiException e) {
             selectedList = new ArrayList<>();
+            System.out.println(e.getMessage());
         }
 
         //Todo: in eigene Methode auslagern
