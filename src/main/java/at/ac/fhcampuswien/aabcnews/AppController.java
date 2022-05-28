@@ -14,7 +14,7 @@ public class AppController {
     private List<Article> articles;
     private static final int LIST_TEXT_BORDER = 20;
 
-    private static final String EXIT_MESSAGE = "Thank you for using ABCD News!";
+    private static final String EXIT_MESSAGE = "Thank you for using AABCD News!";
     private static final String EXIT_MESSAGE_2 = "Hope to see you again soon!";
     @FXML
     private ChoiceBox<String> choiceBox;

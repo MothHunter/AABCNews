@@ -5,6 +5,9 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.internal.connection.RealConnection;
+
+import java.io.IOException;
 
 public class NewsApi {
     public enum Category {business, entertainment, general, health, science, sports, technology}
@@ -50,17 +53,32 @@ public class NewsApi {
         urlBuilder.addQueryParameter("apiKey", apiKey);
 
         Request request = new Request.Builder().url(urlBuilder.build()).build();
+        Gson gson = new Gson();
 
         try (Response response = client.newCall(request).execute()) {
-            Gson gson = new Gson();
             String responseString = response.body().string();
             NewsResponse newsResponse = gson.fromJson(responseString, NewsResponse.class);
             return newsResponse;
-        } catch (Exception e) {
+        } catch (IOException e)  {
+            return null;
+        }
+        catch (Exception e) {
             System.out.println("The http request failed!");
             e.printStackTrace();
             return null;
         }
 
+    }
+    public boolean checkInternet () {
+        HttpUrl googleUrl = HttpUrl.parse("http://www.google.com");
+        Request request = new Request.Builder().url(googleUrl).build();
+        try {
+            Response response = client.newCall(request).execute();
+        } catch (Exception e) {
+            return false;
+        }
+
+        //final URLConnection conn = url.openConnection();
+        return true;
     }
 }
