@@ -1,6 +1,7 @@
 package at.ac.fhcampuswien.aabcnews;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -49,18 +50,32 @@ public class NewsApi {
 
        return handleRequest(urlBuilder);
     }
-    public NewsResponse handleRequest(HttpUrl.Builder urlBuilder){
+    public NewsResponse handleRequest(HttpUrl.Builder urlBuilder) throws NewsApiException{
         urlBuilder.addQueryParameter("apiKey", apiKey);
 
         Request request = new Request.Builder().url(urlBuilder.build()).build();
         Gson gson = new Gson();
 
         try (Response response = client.newCall(request).execute()) {
+            if (response.code() != 200) {
+                throw new NewsApiException("Received error response: " + response.message(),
+                        NewsApiException.EXCEPTION_CODE.badResponse);
+            }
+            if (response.body() == null) {
+                throw new NewsApiException("Response had code \"ok\", but contained no body",
+                        NewsApiException.EXCEPTION_CODE.badResponse);
+            }
             String responseString = response.body().string();
             NewsResponse newsResponse = gson.fromJson(responseString, NewsResponse.class);
             return newsResponse;
         } catch (IOException e)  {
-            return null;
+            throw new NewsApiException("Call execution for news request failed!",
+                    NewsApiException.EXCEPTION_CODE.noConnection);
+        } catch (NullPointerException e){
+            throw new NewsApiException("Response contained body but it could not be converted to a string. " +
+                    "This should not happen.");
+        } catch (JsonSyntaxException e){
+
         }
         catch (Exception e) {
             System.out.println("The http request failed!");

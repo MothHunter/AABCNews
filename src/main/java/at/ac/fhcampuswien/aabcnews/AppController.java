@@ -91,10 +91,8 @@ public class AppController {
         if (newsResponse == null) {
             return new ArrayList<>();
         } else {
-
             return newsResponse.getArticles();
         }
-
     }
 
     public List<Article> getAllNewsBitcoin() {
@@ -103,10 +101,7 @@ public class AppController {
             return new ArrayList<>();
         } else {
             return newsResponse.getArticles();
-
         }
-
-
     }
 
     protected static List<Article> filterList(String query, List<Article> articles) {
@@ -117,7 +112,6 @@ public class AppController {
                 foundArticles.add(a);
             }
         }
-
         return foundArticles;
     }
 
