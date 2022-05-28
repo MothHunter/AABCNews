@@ -31,13 +31,18 @@ public class AppController {
 
         String choice = choiceBox.getValue();
         List<Article> selectedList;
-        if (choice.equals("All News Bitcoin")) {
-            selectedList = getAllNewsBitcoin();
+        try {
+            if (choice.equals("All News Bitcoin")) {
+                selectedList = getAllNewsBitcoin();
 
-        } else {
-            selectedList = getTopHeadlinesAustria();
+            } else {
+                selectedList = getTopHeadlinesAustria();
+            }
+        } catch (NewsApiException e) {
+            selectedList = new ArrayList<>();
         }
 
+        //Todo: in eigene Methode auslagern
         listView.getItems().clear();
         for (int i = 0; i < selectedList.size(); i++) {
             Text item = new Text(selectedList.get(i).toString());
@@ -85,7 +90,7 @@ public class AppController {
         return articles.size();
     }
 
-    public List<Article> getTopHeadlinesAustria() {
+    public List<Article> getTopHeadlinesAustria() throws NewsApiException{
 
         NewsResponse newsResponse = NewsApi.getInstance().requestTopHeadlines("AT");
         if (newsResponse == null) {
@@ -95,7 +100,7 @@ public class AppController {
         }
     }
 
-    public List<Article> getAllNewsBitcoin() {
+    public List<Article> getAllNewsBitcoin() throws NewsApiException{
         NewsResponse newsResponse = NewsApi.getInstance().requestAllNews("bitcoin", NewsApi.Language.de);
         if (newsResponse == null) {
             return new ArrayList<>();

@@ -33,7 +33,7 @@ public class NewsApi {
         return instance;
     }
 
-    public NewsResponse requestAllNews(String query, Language language){
+    public NewsResponse requestAllNews(String query, Language language) throws NewsApiException{
         HttpUrl.Builder urlBuilder = HttpUrl.parse(root).newBuilder();
         urlBuilder.addPathSegment("everything");
 
@@ -42,7 +42,7 @@ public class NewsApi {
         return handleRequest(urlBuilder);
     }
 
-    public NewsResponse requestTopHeadlines(String country){
+    public NewsResponse requestTopHeadlines(String country) throws NewsApiException{
         HttpUrl.Builder urlBuilder = HttpUrl.parse(root).newBuilder();
         urlBuilder.addPathSegment("top-headlines");
 
@@ -61,26 +61,23 @@ public class NewsApi {
                 throw new NewsApiException("Received error response: " + response.message(),
                         NewsApiException.EXCEPTION_CODE.badResponse);
             }
-            if (response.body() == null) {
+            else if (response.body() == null) {
                 throw new NewsApiException("Response had code \"ok\", but contained no body",
                         NewsApiException.EXCEPTION_CODE.badResponse);
             }
             String responseString = response.body().string();
-            NewsResponse newsResponse = gson.fromJson(responseString, NewsResponse.class);
-            return newsResponse;
+            return gson.fromJson(responseString, NewsResponse.class);
+
         } catch (IOException e)  {
-            throw new NewsApiException("Call execution for news request failed!",
+            throw new NewsApiException("Call execution for news request failed!", checkInternet() ?
+                    NewsApiException.EXCEPTION_CODE.webserviceUnreachable :
                     NewsApiException.EXCEPTION_CODE.noConnection);
         } catch (NullPointerException e){
             throw new NewsApiException("Response contained body but it could not be converted to a string. " +
-                    "This should not happen.");
+                    "This should not happen!");
         } catch (JsonSyntaxException e){
-
-        }
-        catch (Exception e) {
-            System.out.println("The http request failed!");
-            e.printStackTrace();
-            return null;
+            throw new NewsApiException("Webservice returned json object of unexpected structure or bad syntax." +
+                    "This should not happen!");
         }
 
     }
