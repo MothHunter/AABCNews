@@ -51,6 +51,7 @@ public class NewsApi {
        return handleRequest(urlBuilder);
     }
     public NewsResponse handleRequest(HttpUrl.Builder urlBuilder) throws NewsApiException{
+        urlBuilder.addQueryParameter("pageSize", "100");
         urlBuilder.addQueryParameter("apiKey", apiKey);
 
         Request request = new Request.Builder().url(urlBuilder.build()).build();
