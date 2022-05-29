@@ -25,6 +25,12 @@ public class AppController {
     private Button quitButton;
     @FXML
     private Label countLabel;
+    @FXML
+    private Label resultLabel;
+    @FXML
+    private Button analyzeButton;
+    @FXML
+    private ChoiceBox<String> analysisChoice;
 
     @FXML
     protected void onGetNewsButtonClick() {
@@ -52,6 +58,10 @@ public class AppController {
         }
         countLabel.setText("I found " + selectedList.size() + " article(s).");
     }
+    @FXML
+    protected void onAnalyzeButtonClick() {
+
+    }
 
     @FXML
     protected void onQuitButtonClick() {
@@ -78,6 +88,11 @@ public class AppController {
         choiceBox.getItems().add("All News Bitcoin"); // gets list of items and adds a new one
         choiceBox.getItems().add("Top News Austria");
         choiceBox.getSelectionModel().select(1); // sets the item at position 1 as the one selected at the beginning
+        analysisChoice.getItems().add("Source w most Art.");
+        analysisChoice.getItems().add("Author w longest Name");
+        analysisChoice.getItems().add("Nr of Art. by NYT");
+        analysisChoice.getItems().add("Title < 15 Chars");
+        analysisChoice.getItems().add("Sort by Descr. Length");
     }
 
     public void setArticles(List<Article> articles) {
