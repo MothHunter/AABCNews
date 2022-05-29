@@ -57,12 +57,13 @@ public class NewsApi {
         Gson gson = new Gson();
 
         try (Response response = client.newCall(request).execute()) {
-            if (response.code() != 200) {
-                throw new NewsApiException("Received error response: " + response.message(),
+            if (!response.isSuccessful()) {
+                throw new NewsApiException("Received error response: "
+                        + (response.body() !=null ? response.body().string() : "no further information available!"),
                         NewsApiException.EXCEPTION_CODE.badResponse);
             }
             else if (response.body() == null) {
-                throw new NewsApiException("Response had code \"ok\", but contained no body",
+                throw new NewsApiException("Response had code \"ok\", but contained no body. Can this even happen?",
                         NewsApiException.EXCEPTION_CODE.badResponse);
             }
             String responseString = response.body().string();
