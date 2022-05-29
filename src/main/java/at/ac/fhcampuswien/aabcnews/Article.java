@@ -25,7 +25,7 @@ public class Article {
     }
 
     public String getDescription() {
-        return description;
+        return description != null? description : "";
     }
 
     public String getUrl() {

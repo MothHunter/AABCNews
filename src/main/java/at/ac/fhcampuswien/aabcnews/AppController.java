@@ -53,10 +53,10 @@ public class AppController {
             }
         } catch (NewsApiException e) {
             selectedList = new ArrayList<>();
-            System.out.println(e.getMessage());
+            System.out.println(e.getMessage() + ": " + e.exceptionCode);
         }
-
-        displayArticles(selectedList);
+        articles = selectedList;
+        displayArticles(selectedList, false);
     }
 
     @FXML
@@ -73,12 +73,14 @@ public class AppController {
         } else if (myChoice.equals(analysisOptions[3])) {
 
         } else if (myChoice.equals(analysisOptions[4])) {
-
+            sortArticlesByLength();
         }
     }
     private void sortArticlesByLength(){
-        articles.stream().sorted((a1,a2)-> a1.getDescription().compareTo(a2.getDescription()))
-                .sorted((a1,a2)-> a1.getDescription().length()<=a2.getDescription().length()?a1:a2);
+        List sortedArticles = articles.stream().sorted((a1,a2) -> a1.getDescription().compareTo(a2.getDescription()))
+                .sorted((a1, a2) -> Integer.compare(a1.getDescription().length(), a2.getDescription().length()))
+                .toList();
+        displayArticles(sortedArticles, true);
     }
     @FXML
     protected void onQuitButtonClick() {
@@ -92,7 +94,7 @@ public class AppController {
     }
 
     public AppController() {
-        this.articles = generateMockList();
+        this.articles = new ArrayList<>();
     }
 
     /*  initialize ist eine von javaFX definierte Methode, die aufgerufen wird nachdem der Constructor fertig ist und
@@ -151,10 +153,12 @@ public class AppController {
         return foundArticles;
     }
 
-    private void displayArticles(List<Article> list) {
+    private void displayArticles(List<Article> list, boolean withDescription) {
         listView.getItems().clear();
         for (int i = 0; i < list.size(); i++) {
-            Text item = new Text(list.get(i).toString());
+            Article art = list.get(i);
+            Text item = new Text(art.toString() + (withDescription ? (System.lineSeparator() + art.getDescription() +
+                            System.lineSeparator() + "(Description length: " + art.getDescription().length()) : ""));
             item.setWrappingWidth(listView.getWidth() - LIST_TEXT_BORDER);
             listView.getItems().add(item);
         }
