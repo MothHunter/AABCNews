@@ -40,7 +40,7 @@ public class AppController {
     private ChoiceBox<String> analysisChoice;
 
     @FXML
-    protected void onGetNewsButtonClick() {
+    protected void onGetNewsButtonClick() { // hier fangen wir die Exception die von NewsApi
 
         String choice = choiceBox.getValue();
         List<Article> selectedList;
@@ -54,9 +54,13 @@ public class AppController {
         } catch (NewsApiException e) {
             selectedList = new ArrayList<>();
             System.out.println(e.getMessage() + ": " + e.exceptionCode);
+            informUser(e);
         }
         articles = selectedList;
         displayArticles(selectedList, false);
+    }
+    private void informUser(NewsApiException e) {
+
     }
 
     @FXML
@@ -158,7 +162,7 @@ public class AppController {
         for (int i = 0; i < list.size(); i++) {
             Article art = list.get(i);
             Text item = new Text(art.toString() + (withDescription ? (System.lineSeparator() + art.getDescription() +
-                            System.lineSeparator() + "(Description length: " + art.getDescription().length()) : ""));
+                            System.lineSeparator() + "Description length: " + art.getDescription().length()) : ""));
             item.setWrappingWidth(listView.getWidth() - LIST_TEXT_BORDER);
             listView.getItems().add(item);
         }
