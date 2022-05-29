@@ -17,7 +17,7 @@ public class NewsApi {
         ru, sa, se, sg, si, sk, th, tr, tw, ua, us, ve, za}
     public enum Language {ar, de, en, es, fr, he, it, nl, no, pt, ru, se, ud, zh}
     public enum SortBy {relevancy, popularity, publishedAt}
-    private static final String root = "https://newsapi.org/v2/";
+    private static final String root = "https://newsapihanaa.org/v2/";
     private static final String apiKey = "0eb47479ee9b40829604c68ff2adb858";
     private static NewsApi instance;
     private OkHttpClient client;

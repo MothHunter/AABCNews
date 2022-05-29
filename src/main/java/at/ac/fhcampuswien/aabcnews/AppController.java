@@ -12,6 +12,13 @@ import java.util.List;
 public class AppController {
     String query;
     private List<Article> articles;
+    private final String[] analysisOptions = {
+            "Source w most Art.",
+            "Author w longest Name",
+            "Nr of Art. by NYT",
+            "Title < 15 Chars",
+            "Sort by Descr. Length"
+    };
     private static final int LIST_TEXT_BORDER = 20;
 
     private static final String EXIT_MESSAGE = "Thank you for using AABCD News!";
@@ -51,11 +58,28 @@ public class AppController {
 
         displayArticles(selectedList);
     }
+
     @FXML
     protected void onAnalyzeButtonClick() {
+        String myChoice = analysisChoice.getValue();
+        if (myChoice.equals(analysisOptions[0])) {
+            //toDo
 
+        } else if (myChoice.equals(analysisOptions[1])) {
+
+
+        } else if (myChoice.equals(analysisOptions[2])) {
+
+        } else if (myChoice.equals(analysisOptions[3])) {
+
+        } else if (myChoice.equals(analysisOptions[4])) {
+
+        }
     }
-
+    private void sortArticlesByLength(){
+        articles.stream().sorted((a1,a2)-> a1.getDescription().compareTo(a2.getDescription()))
+                .sorted((a1,a2)-> a1.getDescription().length()<=a2.getDescription().length()?a1:a2);
+    }
     @FXML
     protected void onQuitButtonClick() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -80,12 +104,10 @@ public class AppController {
     public void initialize() {
         choiceBox.getItems().add("All News Bitcoin"); // gets list of items and adds a new one
         choiceBox.getItems().add("Top News Austria");
-        choiceBox.getSelectionModel().select(1); // sets the item at position 1 as the one selected at the beginning
-        analysisChoice.getItems().add("Source w most Art.");
-        analysisChoice.getItems().add("Author w longest Name");
-        analysisChoice.getItems().add("Nr of Art. by NYT");
-        analysisChoice.getItems().add("Title < 15 Chars");
-        analysisChoice.getItems().add("Sort by Descr. Length");
+        choiceBox.getSelectionModel().select(1);// sets the item at position 1 as the one selected at the beginning
+        for (int i = 0; i < analysisOptions.length; i++) {
+            analysisChoice.getItems().add(analysisOptions[i]);
+        }
     }
 
     public void setArticles(List<Article> articles) {
@@ -99,7 +121,7 @@ public class AppController {
         return articles.size();
     }
 
-    public List<Article> getTopHeadlinesAustria() throws NewsApiException{
+    public List<Article> getTopHeadlinesAustria() throws NewsApiException {
 
         NewsResponse newsResponse = NewsApi.getInstance().requestTopHeadlines("AT");
         if (newsResponse == null) {
@@ -109,7 +131,7 @@ public class AppController {
         }
     }
 
-    public List<Article> getAllNewsBitcoin() throws NewsApiException{
+    public List<Article> getAllNewsBitcoin() throws NewsApiException {
         NewsResponse newsResponse = NewsApi.getInstance().requestAllNews("bitcoin", NewsApi.Language.de);
         if (newsResponse == null) {
             return new ArrayList<>();
