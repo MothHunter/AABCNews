@@ -17,7 +17,7 @@ public class Article {
     }
 
     public String getAuthor() {
-        return author;
+        return author != null ? author : "n/a";
     }
 
     public String getTitle() {

@@ -58,33 +58,71 @@ public class AppController {
         articles = selectedList;
         displayArticles(selectedList, false);
     }
-    private void informUser(NewsApiException e) {
 
+    private void informUser(NewsApiException e) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("An Error has occurred");
+
+        switch (e.exceptionCode) {
+            case badResponse:
+                alert.setHeaderText("Bad response from server");
+                alert.setContentText("Data request was rejected or corrupted. Please try again in a few minutes. " +
+                        "If the problem persists please contact support");
+                break;
+            case badList:
+                alert.setHeaderText("Analysis could not be completed!");
+                alert.setContentText("You selected an analysis that could not be completed on the current list. " +
+                        "If the list contains only very few and malformed entries this might be the reason. " +
+                        "Try to re-request the news or select a different topic / option");
+                break;
+            case noConnection:
+                alert.setHeaderText("Could not connect to the internet!");
+                alert.setContentText("Please check your internet connection and firewall settings.");
+                break;
+            case webserviceUnreachable:
+                alert.setHeaderText("News server unreachable!");
+                alert.setContentText("The NewsApi server could not be reached, though your internet connection seems" +
+                        "to be fine. Please try again in a few minutes or try to restart your router. If the Problem" +
+                        "persists please contact customer support.");
+                break;
+            default:
+                alert.setHeaderText("Error: " + e.exceptionCode);
+                alert.setContentText(e.getMessage());
+        }
+        alert.showAndWait();
     }
 
     @FXML
     protected void onAnalyzeButtonClick() {
         String myChoice = analysisChoice.getValue();
-        if (myChoice.equals(analysisOptions[0])) {
-            //toDo
-
-        } else if (myChoice.equals(analysisOptions[1])) {
-
-
-        } else if (myChoice.equals(analysisOptions[2])) {
-
-        } else if (myChoice.equals(analysisOptions[3])) {
-
-        } else if (myChoice.equals(analysisOptions[4])) {
-            sortArticlesByLength();
+        if (myChoice == null) {
+            return;
+        }
+        try {
+            if (myChoice.equals(analysisOptions[0])) {
+                Source source = getSourceWithMostArticles();
+                resultLabel.setText("The source with the most articles was: " +
+                        System.lineSeparator() + source.getName());
+            } else if (myChoice.equals(analysisOptions[1])) {
+                String longestName = getAuthorWithLongestName();
+                resultLabel.setText("the longest author name was: " +
+                        System.lineSeparator() + longestName);
+            } else if (myChoice.equals(analysisOptions[2])) {
+                long countNYT = getCountOfNewYorkTimesSource();
+                resultLabel.setText("including " + countNYT + " from NYT");
+            } else if (myChoice.equals(analysisOptions[3])) {
+                List<Article> newList = getArticlesWithTitleLessThan15Chars();
+                displayArticles(newList, false);
+            } else if (myChoice.equals(analysisOptions[4])) {
+                List<Article> newList = sortArticlesByLength();
+                displayArticles(newList, true);
+            }
+        } catch (NewsApiException e) {
+            System.out.println(e.getMessage() + ": " + e.exceptionCode);
+            informUser(e);
         }
     }
-    private void sortArticlesByLength(){
-        List sortedArticles = articles.stream().sorted((a1,a2) -> a1.getDescription().compareTo(a2.getDescription()))
-                .sorted((a1, a2) -> Integer.compare(a1.getDescription().length(), a2.getDescription().length()))
-                .toList();
-        displayArticles(sortedArticles, true);
-    }
+
     @FXML
     protected void onQuitButtonClick() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -127,7 +165,26 @@ public class AppController {
     }
 
 
-    /*
+    public List<Article> getTopHeadlinesAustria() throws NewsApiException {
+
+        NewsResponse newsResponse = NewsApi.getInstance().requestTopHeadlines("AT");
+        if (newsResponse == null) {
+            return new ArrayList<>();
+        } else {
+            return newsResponse.getArticles();
+        }
+    }
+
+    public List<Article> getAllNewsBitcoin() throws NewsApiException {
+        NewsResponse newsResponse = NewsApi.getInstance().requestAllNews("bitcoin", NewsApi.Language.en);
+        if (newsResponse == null) {
+            return new ArrayList<>();
+        } else {
+            return newsResponse.getArticles();
+        }
+    }
+
+        /*
         Which provider (= source) delivers the most articles?
         Which author has the longest name?
         How many articles come from the source "New York Times"?
@@ -136,17 +193,20 @@ public class AppController {
         descriptions of articles are of the same length, the sorting should be alphabetical.
      */
 
-    public Source getSourceWithMostArticles() {
+    public Source getSourceWithMostArticles() throws NewsApiException {
         Source sourceWithMostArticles = articles.stream().collect(Collectors.groupingBy(Article::getSource, Collectors.counting()))
                 .entrySet().stream().max(Map.Entry.comparingByValue())
-                .map(Map.Entry::getKey).orElse(null);
+                .map(Map.Entry::getKey).orElseThrow(() -> new NewsApiException("There are no valid sources in the list.",
+                        NewsApiException.EXCEPTION_CODE.badList));
         return sourceWithMostArticles;
     }
 
     public String getAuthorWithLongestName() throws NewsApiException {
 
         Optional<String> authorWithLongestName = articles.stream().map(Article::getAuthor).max(Comparator.comparing(String::length));
-        return authorWithLongestName.orElseThrow(() -> new NewsApiException("There are no articles in the list"));
+
+        return authorWithLongestName.orElseThrow(() -> new NewsApiException("There are no articles with authors in the list.",
+                NewsApiException.EXCEPTION_CODE.badList));
     }
 
     public long getCountOfNewYorkTimesSource() {
@@ -159,23 +219,11 @@ public class AppController {
         return list;
     }
 
-    public List<Article> getTopHeadlinesAustria() throws NewsApiException {
-
-        NewsResponse newsResponse = NewsApi.getInstance().requestTopHeadlines("AT");
-        if (newsResponse == null) {
-            return new ArrayList<>();
-        } else {
-            return newsResponse.getArticles();
-        }
-    }
-
-    public List<Article> getAllNewsBitcoin() throws NewsApiException {
-        NewsResponse newsResponse = NewsApi.getInstance().requestAllNews("bitcoin", NewsApi.Language.de);
-        if (newsResponse == null) {
-            return new ArrayList<>();
-        } else {
-            return newsResponse.getArticles();
-        }
+    private List<Article> sortArticlesByLength() {
+        List<Article> sortedArticles = articles.stream().sorted((a1, a2) -> a1.getDescription().compareTo(a2.getDescription()))
+                .sorted((a1, a2) -> Integer.compare(a1.getDescription().length(), a2.getDescription().length()))
+                .toList();
+        return sortedArticles;
     }
 
     protected static List<Article> filterList(String query, List<Article> articles) {
@@ -194,7 +242,7 @@ public class AppController {
         for (int i = 0; i < list.size(); i++) {
             Article art = list.get(i);
             Text item = new Text(art.toString() + (withDescription ? (System.lineSeparator() + art.getDescription() +
-                            System.lineSeparator() + "Description length: " + art.getDescription().length()) : ""));
+                    System.lineSeparator() + "Description length: " + art.getDescription().length()) : ""));
             item.setWrappingWidth(listView.getWidth() - LIST_TEXT_BORDER);
             listView.getItems().add(item);
         }
