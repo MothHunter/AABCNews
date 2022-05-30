@@ -12,11 +12,11 @@ public class AppController {
     String query;
     private List<Article> articles;
     private final String[] analysisOptions = {
-            "Source w most Art.",
-            "Author w longest Name",
-            "Nr of Art. by NYT",
+            "Source with most articles.",
+            "Author with longest name",
+            "Nr of articles by BBC News",
             "Title < 15 Chars",
-            "Sort by Descr. Length"
+            "Sort by description length"
     };
     private static final int LIST_TEXT_BORDER = 20;
 
@@ -95,9 +95,10 @@ public class AppController {
     @FXML
     protected void onAnalyzeButtonClick() {
         String myChoice = analysisChoice.getValue();
-        if (myChoice == null) {
+        if (myChoice == null || getArticleCount() == 0) {
             return;
         }
+        resultLabel.setText("");
         try {
             if (myChoice.equals(analysisOptions[0])) {
                 Source source = getSourceWithMostArticles();
@@ -108,8 +109,8 @@ public class AppController {
                 resultLabel.setText("the longest author name was: " +
                         System.lineSeparator() + longestName);
             } else if (myChoice.equals(analysisOptions[2])) {
-                long countNYT = getCountOfNewYorkTimesSource();
-                resultLabel.setText("including " + countNYT + " from NYT");
+                long countNYT = getCountOfBBCNewsSource();
+                resultLabel.setText("including " + countNYT + " from BBC News");
             } else if (myChoice.equals(analysisOptions[3])) {
                 List<Article> newList = getArticlesWithTitleLessThan15Chars();
                 displayArticles(newList, false);
@@ -209,8 +210,8 @@ public class AppController {
                 NewsApiException.EXCEPTION_CODE.badList));
     }
 
-    public long getCountOfNewYorkTimesSource() {
-        long count = articles.stream().filter(a -> a.getSource().getName().equalsIgnoreCase("New York Times")).count();
+    public long getCountOfBBCNewsSource() {
+        long count = articles.stream().filter(a -> a.getSource().getName().equalsIgnoreCase("BBC News")).count();
         return count;
     }
 
