@@ -58,6 +58,32 @@ public class AppController {
         setArticles(selectedList);
         displayArticles(selectedList, false);
     }
+    @FXML
+    protected void onDownloadButtonClick () {
+        if (listView.getSelectionModel().getSelectedItem() == null) {
+            return;
+        }
+        String selected = listView.getSelectionModel().getSelectedItem().getText();
+        selected = selected.split("Author: ")[0].replace(", Title: ", "");
+        Article article = null;
+        for (int i = 0; i < articles.size(); i++) {
+            if(articles.get(i).getTitle().equals(selected)) {
+                article = articles.get(i);
+            }
+        }
+        if (article == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("The Article could not be downloaded");
+            alert.setContentText("could not find the selected Article in the list, sorry!");
+            return;
+        }
+        try {
+            NewsApi.getInstance().downloadText(article);
+        } catch (NewsApiException e) {
+            System.out.println(e.getMessage() + ": " + e.exceptionCode);
+            informUser(e);
+        }
+    }
 
     private void informUser(NewsApiException e) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -158,6 +184,7 @@ public class AppController {
         for (int i = 0; i < analysisOptions.length; i++) {
             analysisChoice.getItems().add(analysisOptions[i]);
         }
+        analysisChoice.getSelectionModel().select(0);
     }
 
     public void setArticles(List<Article> articles) {
