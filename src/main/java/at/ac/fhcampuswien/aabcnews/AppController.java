@@ -55,7 +55,7 @@ public class AppController {
             System.out.println(e.getMessage() + ": " + e.exceptionCode);
             informUser(e);
         }
-        articles = selectedList;
+        setArticles(selectedList);
         displayArticles(selectedList, false);
     }
 
@@ -81,9 +81,15 @@ public class AppController {
                 break;
             case webserviceUnreachable:
                 alert.setHeaderText("News server unreachable!");
-                alert.setContentText("The NewsApi server could not be reached, though your internet connection seems" +
-                        "to be fine. Please try again in a few minutes or try to restart your router. If the Problem" +
+                alert.setContentText("The NewsApi server could not be reached, though your internet connection seems " +
+                        "to be fine. Please try again in a few minutes or try to restart your router. If the Problem " +
                         "persists please contact customer support.");
+                break;
+            case requestConstructionFailed:
+                alert.setHeaderText("Internal error with request creation");
+                alert.setContentText("The process of creating an HTTP request failed. Either someone messed with the " +
+                        "root URL for requests, or you are completely out of memory, in which case this error is " +
+                        "probably the least of your concerns.");
                 break;
             default:
                 alert.setHeaderText("Error: " + e.exceptionCode);
@@ -203,9 +209,7 @@ public class AppController {
     }
 
     public String getAuthorWithLongestName() throws NewsApiException {
-
         Optional<String> authorWithLongestName = articles.stream().map(Article::getAuthor).max(Comparator.comparing(String::length));
-
         return authorWithLongestName.orElseThrow(() -> new NewsApiException("There are no articles with authors in the list.",
                 NewsApiException.EXCEPTION_CODE.badList));
     }
