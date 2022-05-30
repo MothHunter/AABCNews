@@ -5,9 +5,8 @@ import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class AppController {
     String query;
@@ -125,6 +124,39 @@ public class AppController {
             return 0;
         }
         return articles.size();
+    }
+
+
+    /*
+        Which provider (= source) delivers the most articles?
+        Which author has the longest name?
+        How many articles come from the source "New York Times"?
+        Which articles have a title that consists of less than 15 characters?
+        Sort the articles by the length of their description in ascending order. If the
+        descriptions of articles are of the same length, the sorting should be alphabetical.
+     */
+
+    public Source getSourceWithMostArticles() {
+        Source sourceWithMostArticles = articles.stream().collect(Collectors.groupingBy(Article::getSource, Collectors.counting()))
+                .entrySet().stream().max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey).orElse(null);
+        return sourceWithMostArticles;
+    }
+
+    public String getAuthorWithLongestName() throws NewsApiException {
+
+        Optional<String> authorWithLongestName = articles.stream().map(Article::getAuthor).max(Comparator.comparing(String::length));
+        return authorWithLongestName.orElseThrow(() -> new NewsApiException("There are no articles in the list"));
+    }
+
+    public long getCountOfNewYorkTimesSource() {
+        long count = articles.stream().filter(a -> a.getSource().getName().equalsIgnoreCase("New York Times")).count();
+        return count;
+    }
+
+    public List<Article> getArticlesWithTitleLessThan15Chars() {
+        List<Article> list = articles.stream().filter(a -> a.getTitle().length() < 15).collect(Collectors.toList());
+        return list;
     }
 
     public List<Article> getTopHeadlinesAustria() throws NewsApiException {

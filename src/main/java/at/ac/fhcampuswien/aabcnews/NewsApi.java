@@ -16,13 +16,14 @@ public class NewsApi {
         hk, hu, id, ie, il, in, it, jp, kr, lt, lv, ma, mx, my, ng, nl, no, nz, ph, pl, pt, ro, rs,
         ru, sa, se, sg, si, sk, th, tr, tw, ua, us, ve, za}
     public enum Language {ar, de, en, es, fr, he, it, nl, no, pt, ru, se, ud, zh}
+
     public enum SortBy {relevancy, popularity, publishedAt}
     private static final String root = "https://newsapi.org/v2/";
     private static final String apiKey = "0eb47479ee9b40829604c68ff2adb858";
     private static NewsApi instance;
     private OkHttpClient client;
 
-    private NewsApi(){
+    private NewsApi() {
         client = new OkHttpClient();
     }
 
@@ -48,8 +49,9 @@ public class NewsApi {
 
         urlBuilder.addQueryParameter("country", country);
 
-       return handleRequest(urlBuilder);
+        return handleRequest(urlBuilder);
     }
+
     public NewsResponse handleRequest(HttpUrl.Builder urlBuilder) throws NewsApiException{
         urlBuilder.addQueryParameter("pageSize", "100");
         urlBuilder.addQueryParameter("apiKey", apiKey);
