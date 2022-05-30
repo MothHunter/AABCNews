@@ -140,7 +140,10 @@ public class NewsApi {
         for (int i = 0; i < fragments.length - 1; i++) {
             int stringIndex;
             if (fragments[i].contains("<p>")) {
-                fragments[i] = fragments[i].split("<p>")[1];
+                String[] split = fragments[i].split("<p>");
+                if (split.length > 1) {
+                    fragments[i] = split[1];
+                }
             } else if ((stringIndex = fragments[i].indexOf("<p ")) >= 0) {
                 fragments[i] = fragments[i].substring(fragments[i].indexOf(">", stringIndex) + 1);
             }

@@ -64,7 +64,9 @@ public class AppController {
             return;
         }
         String selected = listView.getSelectionModel().getSelectedItem().getText();
-        selected = selected.split("Author: ")[0].replace(", Title: ", "");
+        System.out.println(selected);
+        selected = selected.split(", Author: ")[0].replace("Title: ", "");
+        System.out.println(selected);
         Article article = null;
         for (int i = 0; i < articles.size(); i++) {
             if(articles.get(i).getTitle().equals(selected)) {
