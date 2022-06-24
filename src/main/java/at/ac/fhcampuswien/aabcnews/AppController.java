@@ -1,5 +1,8 @@
 package at.ac.fhcampuswien.aabcnews;
 
+import at.ac.fhcampuswien.aabcnews.downloader.Downloader;
+import at.ac.fhcampuswien.aabcnews.downloader.ParallelDownloader;
+import at.ac.fhcampuswien.aabcnews.downloader.SequentialDownloader;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
@@ -7,6 +10,7 @@ import javafx.stage.Stage;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class AppController {
     String query;
@@ -85,6 +89,32 @@ public class AppController {
             System.out.println(e.getMessage() + ": " + e.exceptionCode);
             informUser(e);
         }
+    }
+
+    @FXML
+    protected void onDownloadAllButtonClick () {
+        try {
+            int resultSequential = downloadURLs(new SequentialDownloader());
+            // TODO print time in ms it took to download URLs sequentially
+
+            int resultParallel = downloadURLs(new ParallelDownloader());
+            // TODO print time in ms it took to download URLs parallel
+
+        } catch (NewsApiException e){
+            System.out.println(e.getMessage());
+            informUser(e);
+        }
+    }
+
+    private int downloadURLs(Downloader downloader) throws NewsApiException{
+        if( articles == null)
+            throw new NewsApiException("No articles found to download!");
+
+        List<String> urls = articles.stream().map(Article::getUrl).collect(Collectors.toList());
+
+        // TODO extract urls from articles with java stream
+
+        return downloader.process(urls);
     }
 
     private void informUser(NewsApiException e) {
