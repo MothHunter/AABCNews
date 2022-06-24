@@ -173,4 +173,26 @@ public class NewsApi {
         }
         return true;
     }
+    public class UrlBuilder{
+        //key values pairs mit einer Map. ...wie hashkey ohne hashen
+        //private
+        //append parameter funktion, die übernimmt zwei strings
+        //und fügt map diese zwei strings hinzu...key und value hinzu
+
+        /*
+        1.) map : page size 100 api key...von anfang an übergeben
+        überschreiben der tostring Methode.
+
+        2.) was ist eine Map?
+        wie eine Liste nur mit 2 Werten. Wir haben einen Schlüssel zu dem noch ein Wert gehört.
+
+
+        getAllNews..können wir auch in Builder machen. dass er gemeinsam für getTopnews und get all news funktioniert
+        how is it done? 1.) ? 2.) key value pairs
+         */
+    }
 }
+
+/*
+neue nested Class. in der news api
+ */
