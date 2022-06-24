@@ -16,7 +16,11 @@ public class AppController {
             "Author with longest name",
             "Nr of articles by BBC News",
             "Title < 15 Chars",
-            "Sort by description length"
+            "Sort by description length",
+            /*
+            analysis options
+             */
+
     };
     private static final int LIST_TEXT_BORDER = 20;
 
