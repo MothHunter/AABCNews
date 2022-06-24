@@ -66,7 +66,7 @@ public class NewsAPIUrlBuilder {
 
     public String build(){
         // Build our base url and check if another parameters exited or not?
-        String url = this.root + this.endpoint + "?" + this.apiKey;
+        String url = this.root + this.endpoint + "?" +  "apikey=" + this.apiKey;
 
         if(this.q != null && this.q != ""){
             url = url + "&" + "q=" + this.q; //bei query nutzen wir & zeichen bei URL
