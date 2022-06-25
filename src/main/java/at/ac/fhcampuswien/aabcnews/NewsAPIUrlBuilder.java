@@ -42,6 +42,7 @@ final ist unveränderbar.
         return this;
     }
 
+
     public NewsAPIUrlBuilder addCategory(String category){
         this.category = category;
         return this;

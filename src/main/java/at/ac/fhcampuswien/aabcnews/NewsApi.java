@@ -61,13 +61,10 @@ public class NewsApi {
         }
         urlBuilder.addCategory("everything");
 
-        urlBuilder.addQ("q", query);
-        urlBuilder.addLanguage("language", language.toString());
-        return NewsAPIUrlBuilder(urlBuilder);
+        urlBuilder.addQ("q");
+        urlBuilder.addLanguage("language");
+        return urlBuilder; //oder retun NewsApiUrlBuilder
 
-        /*
-        wir müssen andere addQ usw machen.
-         */
     }
 
     public NewsResponse requestTopHeadlines(String country) throws NewsApiException {
@@ -80,14 +77,14 @@ public class NewsApi {
         }
         urlBuilder.addCategory("top-headlines");
 
-        urlBuilder.addQ(q);
+        urlBuilder.addQ("q");
 
-        return handleRequest(urlBuilder);
+        return NewsAPIUrlBuilder();
     }
 
-    private NewsResponse handleRequest(HttpUrl.Builder urlBuilder) throws NewsApiException {
-        urlBuilder.addpageSize("pageSize", "100");
-        urlBuilder.addQueryParameter("apiKey", apiKey);
+    private NewsResponse handleRequest(NewsAPIUrlBuilder urlBuilder) throws NewsApiException {
+        urlBuilder.addPageSize("100");
+        urlBuilder.add("apiKey", apiKey); //wie mach ich das wenn api key final ist?
 
         Request request = new Request.Builder().url(urlBuilder.build()).build();
         Gson gson = new Gson();
