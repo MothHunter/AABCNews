@@ -20,31 +20,14 @@ public class ParallelDownloader extends Downloader{
         int numberOfProcessors = Runtime.getRuntime().availableProcessors();
         System.out.println("available processors: " + numberOfProcessors);
         ExecutorService pool = Executors.newFixedThreadPool(numberOfProcessors);
-        /*
-        1.) erstelle zwei Variablen : before after download und hole von ihnen den timestamp.
-         */
-        long getTimeBeforeDownload = getTime();
 
-        /*
-
-        befor wir in die forSchleife gehen möchte ich die Millisekunden wissen.
-         */
         for (int i = 0; i < urls.size(); i++) {
             String url = urls.get(i);
             Callable<String> download = () -> saveUrl2File(url);
             downloads.add((download));
         }
-/*
-es wurde gedownloaded und im download hinzugefügt. es ist abgeschlossen.
-Ich möchte wieder die Millisekunden wissen.
- */
-        long getAfterDownload = getTime();//in Milliseconds
 
 
-        /*
-        nun subtrahiere ich die timestamps 5 Sekunden-3 Sekunden und gebe aus, dass es 2 Sekunden gedauert hat.
-         */
-        System.out.println("The milliseconds used for the download were" + (getAfterDownload-getTimeBeforeDownload));
         List<Future<String>> completedDownloads = null;
         List<String> fileNames = new ArrayList<>();
         try {
