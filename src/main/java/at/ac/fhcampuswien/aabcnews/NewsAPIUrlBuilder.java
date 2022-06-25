@@ -7,17 +7,19 @@ public class NewsAPIUrlBuilder {
     private final String root;
     private final String endpoint;
     private final String apiKey;
-
-    private final String country;
-    private final String q;
-    private final String language;
-    private final String category;
-    private final String sources;
-    private final String pageSize;
-    private final String page;
+/*
+final ist unveränderbar.
+ */
+    private  String country;
+    private  String q;
+    private  String language;
+    private  String category;
+    private  String sources;
+    private  String pageSize;
+    private  String page;
 
     /*
-    2.) Konstruktor erstellen und Objekt zu hauen
+    2.) Konstruktor erstellen und Objekt zu bauen.
      */
 
     public NewsAPIUrlBuilder (String root, String endpoint, String apiKey){

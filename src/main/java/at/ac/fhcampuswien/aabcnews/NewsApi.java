@@ -26,6 +26,7 @@ public class NewsApi {
 
     private static final String root = "https://newsapi.org/v2/";
     private static final String apiKey = "0eb47479ee9b40829604c68ff2adb858";
+
     private static NewsApi instance;
     private OkHttpClient client;
 
@@ -41,37 +42,51 @@ public class NewsApi {
     }
 
     public NewsResponse requestAllNews(String query, Language language) throws NewsApiException {
-        HttpUrl.Builder urlBuilder;
+        NewsAPIUrlBuilder urlBuilder;
         try {
-            urlBuilder = HttpUrl.parse(root).newBuilder();
+            /*
+            wir nehmen String entgegen.
+             */
+            urlBuilder = new NewsAPIUrlBuilder(root,"everything", apiKey);
+            /*
+
+            parse muss weg, weil wir keine parse Funktion haben.
+            Die parse Funktion gehört zum HttpURL.
+
+            parse nimmt String entgegen https:// und trennt das.
+             */
         } catch (NullPointerException e) {
             throw new NewsApiException("Url Builder instantiation returned null",
                     NewsApiException.EXCEPTION_CODE.requestConstructionFailed, e);
         }
-        urlBuilder.addPathSegment("everything");
+        urlBuilder.addCategory("everything");
 
-        urlBuilder.addQueryParameter("q", query);
-        urlBuilder.addQueryParameter("language", language.toString());
-        return handleRequest(urlBuilder);
+        urlBuilder.addQ("q", query);
+        urlBuilder.addLanguage("language", language.toString());
+        return NewsAPIUrlBuilder(urlBuilder);
+
+        /*
+        wir müssen andere addQ usw machen.
+         */
     }
 
     public NewsResponse requestTopHeadlines(String country) throws NewsApiException {
-        HttpUrl.Builder urlBuilder;
+        NewsAPIUrlBuilder urlBuilder;
         try {
-            urlBuilder = HttpUrl.parse(root).newBuilder();
+            urlBuilder = new NewsAPIUrlBuilder(root,"top-headlines", apiKey);
         } catch (NullPointerException e) {
             throw new NewsApiException("Url Builder instantiation returned null",
                     NewsApiException.EXCEPTION_CODE.requestConstructionFailed, e);
         }
-        urlBuilder.addPathSegment("top-headlines");
+        urlBuilder.addCategory("top-headlines");
 
-        urlBuilder.addQueryParameter("country", country);
+        urlBuilder.addQ(q);
 
         return handleRequest(urlBuilder);
     }
 
     private NewsResponse handleRequest(HttpUrl.Builder urlBuilder) throws NewsApiException {
-        urlBuilder.addQueryParameter("pageSize", "100");
+        urlBuilder.addpageSize("pageSize", "100");
         urlBuilder.addQueryParameter("apiKey", apiKey);
 
         Request request = new Request.Builder().url(urlBuilder.build()).build();
@@ -173,26 +188,3 @@ public class NewsApi {
         }
         return true;
     }
-    public class UrlBuilder{
-        //key values pairs mit einer Map. ...wie hashkey ohne hashen
-        //private
-        //append parameter funktion, die übernimmt zwei strings
-        //und fügt map diese zwei strings hinzu...key und value hinzu
-
-        /*
-        1.) map : page size 100 api key...von anfang an übergeben
-        überschreiben der tostring Methode.
-
-        2.) was ist eine Map?
-        wie eine Liste nur mit 2 Werten. Wir haben einen Schlüssel zu dem noch ein Wert gehört.
-
-
-        getAllNews..können wir auch in Builder machen. dass er gemeinsam für getTopnews und get all news funktioniert
-        how is it done? 1.) ? 2.) key value pairs
-         */
-    }
-}
-
-/*
-neue nested Class. in der news api
- */
