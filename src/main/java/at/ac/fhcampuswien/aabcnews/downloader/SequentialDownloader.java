@@ -13,6 +13,7 @@ public class SequentialDownloader extends Downloader {
             String fileName = saveUrl2File(url);
             if(fileName != null)
                 count++;
+            //System.out.println(count);
         }
         return count;
     }

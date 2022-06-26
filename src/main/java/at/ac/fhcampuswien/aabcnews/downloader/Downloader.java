@@ -21,6 +21,9 @@ public abstract class Downloader {
         InputStream is = null;
         OutputStream os = null;
         String fileName = "";
+        if (urlString.contains("www.npr.org")) { // there seems to be a problem with downloading from npr
+            return fileName;
+        }
         try {
             URL url4download = new URL(urlString);  // Convert string to URL
             is = url4download.openStream();
@@ -31,8 +34,11 @@ public abstract class Downloader {
             }
             // added max length for file name to avoid file system errors
             if (fileName.length() > 100) {
-                fileName = fileName.substring(0, 99);
+                fileName = fileName.substring(0, 89) + (fileName.contains(".") ? fileName.substring(fileName.lastIndexOf('.')) : "");
             }
+            fileName = fileName.replaceAll("[!?=&#*%]",""); // replace illegal symbols in file name
+
+            //System.out.println("next: " + fileName); // for debugging
 
             os = new FileOutputStream(DIRECTORY_DOWNLOAD + fileName);   // write to /download/<filename>
 
