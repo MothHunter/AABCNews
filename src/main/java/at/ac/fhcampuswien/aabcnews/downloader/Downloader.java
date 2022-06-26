@@ -21,8 +21,8 @@ public abstract class Downloader {
         InputStream is = null;
         OutputStream os = null;
         String fileName = "";
-        if (urlString.contains("www.npr.org")) { // there seems to be a problem with downloading from npr
-            return fileName;
+        if (urlString.contains("www.npr.org") || urlString.contains("www.dlh.net")) { // there seems to be a problem with downloading from npr
+            return "";
         }
         try {
             URL url4download = new URL(urlString);  // Convert string to URL

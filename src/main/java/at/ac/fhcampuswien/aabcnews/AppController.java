@@ -314,6 +314,9 @@ public class AppController {
 
     protected static List<Article> filterList(String query, List<Article> articles) {
         List<Article> foundArticles = new ArrayList<>();
+        if(query == null || query.equals("")) {
+            return foundArticles;
+        }
         for (int i = 0; i < articles.size(); i++) {
             Article a = articles.get(i);
             if (a.getTitle().toLowerCase().contains(query.toLowerCase())) {
