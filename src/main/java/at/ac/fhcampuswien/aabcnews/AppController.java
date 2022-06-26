@@ -119,6 +119,14 @@ public class AppController {
             throw new NewsApiException("No articles found to download!");
 
         List<String> urls = articles.stream().map(Article::getUrl).collect(Collectors.toList());
+        /*
+            =
+            List<String> urls = new ArrayList<>();
+            for (int i = 0; i < articles.size(); i++) {
+                urls.add(articles.get(i).getUrl());
+            }
+        */
+
 
         // TODO extract urls from articles with java stream
 

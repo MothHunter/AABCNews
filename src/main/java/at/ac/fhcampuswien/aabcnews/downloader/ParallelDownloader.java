@@ -28,7 +28,7 @@ public class ParallelDownloader extends Downloader{
         }
 
 
-        List<Future<String>> completedDownloads = null;
+        List<Future<String>> completedDownloads;
         List<String> fileNames = new ArrayList<>();
         try {
             completedDownloads = pool.invokeAll(downloads);
