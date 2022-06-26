@@ -2,7 +2,7 @@ package at.ac.fhcampuswien.aabcnews;
 
 import java.util.List;
 
-public class NewsAPIUrlBuilder extends NewsResponse {
+public class NewsAPIUrlBuilder{
 /*
 1.) Variablen erstellen
  */
@@ -78,26 +78,27 @@ final ist unveränderbar.
         }
 
         if(this.country != null && this.country != ""){
-            url = url + "country=" + this.country;
+            url = url + "&" + "country=" + this.country;
         }
 
         if(this.category != null && this.category != ""){
-            url = url + "category=" + this.category;
+            url = url + "&" + "category=" + this.category;
         }
 
         if(this.language != null && this.language != ""){
-            url = url + "language=" + this.language;
+            url = url + "&" + "language=" + this.language;
         }
         if(this.sources != null && this.sources != ""){
-            url = url + "sources=" + this.sources;
+            url = url + "&" + "sources=" + this.sources;
         }
         if(this.pageSize != null && this.pageSize != ""){
-            url = url + "pageSize=" + this.pageSize;
+            url = url + "&" + "pageSize=" + this.pageSize;
         }
         if(this.page != null && this.page != ""){
-            url = url + "page=" + this.page;
+            url = url + "&" + "page=" + this.page;
         }
 
+        System.out.println(url);
         return url;
     }
 

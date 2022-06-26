@@ -54,7 +54,7 @@ public class NewsApi {
 
         urlBuilder.addQ(query);
         // urlBuilder.addQueryParameter("language", language.toString());
-        // urlBuilder.addLanguage(language.toString())
+        urlBuilder.addLanguage(language.toString());
         return handleRequest(urlBuilder);
     }
 
