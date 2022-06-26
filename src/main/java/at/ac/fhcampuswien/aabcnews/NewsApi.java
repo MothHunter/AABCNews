@@ -104,7 +104,7 @@ public class NewsApi {
 
     }
 
-    //Todo: richtig implementieren
+
     public boolean checkInternet() {
         HttpUrl googleUrl = HttpUrl.parse("http://www.google.com");
         Request request = new Request.Builder().url(googleUrl).build();

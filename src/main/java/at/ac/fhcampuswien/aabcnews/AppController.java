@@ -1,12 +1,17 @@
 package at.ac.fhcampuswien.aabcnews;
 
+import at.ac.fhcampuswien.aabcnews.downloader.Downloader;
+import at.ac.fhcampuswien.aabcnews.downloader.ParallelDownloader;
+import at.ac.fhcampuswien.aabcnews.downloader.SequentialDownloader;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.security.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class AppController {
     String query;
@@ -89,6 +94,49 @@ public class AppController {
             System.out.println(e.getMessage() + ": " + e.exceptionCode);
             informUser(e);
         }
+    }
+
+    @FXML
+    protected void onDownloadAllButtonClick () {
+        try {
+            Date date = new Date();
+            long beforeDownloads =date.getTime();
+
+            int resultSequential = downloadURLs(new SequentialDownloader());
+            // TODO print time in ms it took to download URLs sequentially
+            date = new Date();
+            long afterSeqDownloads = date.getTime();
+            System.out.println("Time used for sequential download:" + (afterSeqDownloads-beforeDownloads));
+
+            int resultParallel = downloadURLs(new ParallelDownloader());
+            // TODO print time in ms it took to download URLs parallel
+            date = new Date();
+            long afterParDownloads = date.getTime();
+            System.out.println("Time used for parallel download: " +(afterParDownloads-afterSeqDownloads));
+
+        } catch (NewsApiException e){
+            System.out.println(e.getMessage());
+            informUser(e);
+        }
+    }
+
+    private int downloadURLs(Downloader downloader) throws NewsApiException{
+        if( articles == null)
+            throw new NewsApiException("No articles found to download!");
+
+        List<String> urls = articles.stream().map(Article::getUrl).collect(Collectors.toList());
+        /*
+            =
+            List<String> urls = new ArrayList<>();
+            for (int i = 0; i < articles.size(); i++) {
+                urls.add(articles.get(i).getUrl());
+            }
+        */
+
+
+        // TODO extract urls from articles with java stream
+
+        return downloader.process(urls);
     }
 
     private void informUser(NewsApiException e) {
