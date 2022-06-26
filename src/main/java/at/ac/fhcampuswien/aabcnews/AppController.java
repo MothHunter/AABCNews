@@ -100,14 +100,16 @@ public class AppController {
 
             int resultSequential = downloadURLs(new SequentialDownloader());
             // TODO print time in ms it took to download URLs sequentially
-            Date datum = new Date();
-            long afterSeqDownloads = datum.getTime();
+            date = new Date();
+            long afterSeqDownloads = date.getTime();
             System.out.println("Time used for sequential download:" + (afterSeqDownloads-beforeDownloads));
+
             int resultParallel = downloadURLs(new ParallelDownloader());
             // TODO print time in ms it took to download URLs parallel
             date = new Date();
             long afterParDownloads = date.getTime();
             System.out.println("Time used for parallel download: " +(afterParDownloads-afterSeqDownloads));
+
         } catch (NewsApiException e){
             System.out.println(e.getMessage());
             informUser(e);
