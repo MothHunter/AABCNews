@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+
 public class NewsApi {
     public enum Category {business, entertainment, general, health, science, sports, technology}
 
@@ -26,7 +27,8 @@ public class NewsApi {
 
     private static final String root = "https://newsapi.org/v2/";
     private static final String apiKey = "0eb47479ee9b40829604c68ff2adb858";
-
+    private static final String topHeadlinesEndpoint = "top-headlines";
+    private static final String everythingEndpoint = "everything";
     private static NewsApi instance;
     private OkHttpClient client;
 
@@ -44,47 +46,34 @@ public class NewsApi {
     public NewsResponse requestAllNews(String query, Language language) throws NewsApiException {
         NewsAPIUrlBuilder urlBuilder;
         try {
-            /*
-            wir nehmen String entgegen.
-             */
-            urlBuilder = new NewsAPIUrlBuilder(root,"everything", apiKey);
-            /*
-
-            parse muss weg, weil wir keine parse Funktion haben.
-            Die parse Funktion gehört zum HttpURL.
-
-            parse nimmt String entgegen https:// und trennt das.
-             */
+            urlBuilder = new NewsAPIUrlBuilder(root, everythingEndpoint, apiKey);
         } catch (NullPointerException e) {
             throw new NewsApiException("Url Builder instantiation returned null",
                     NewsApiException.EXCEPTION_CODE.requestConstructionFailed, e);
         }
-        urlBuilder.addCategory("everything");
 
-        urlBuilder.addQ("q");
-        urlBuilder.addLanguage("language");
-        return urlBuilder; //oder retun NewsApiUrlBuilder
-
+        urlBuilder.addQ(query);
+        // urlBuilder.addQueryParameter("language", language.toString());
+        // urlBuilder.addLanguage(language.toString())
+        return handleRequest(urlBuilder);
     }
 
     public NewsResponse requestTopHeadlines(String country) throws NewsApiException {
         NewsAPIUrlBuilder urlBuilder;
         try {
-            urlBuilder = new NewsAPIUrlBuilder(root,"top-headlines", apiKey);
+            urlBuilder = new NewsAPIUrlBuilder(root, topHeadlinesEndpoint, apiKey);
         } catch (NullPointerException e) {
             throw new NewsApiException("Url Builder instantiation returned null",
                     NewsApiException.EXCEPTION_CODE.requestConstructionFailed, e);
         }
-        urlBuilder.addCategory("top-headlines");
 
-        urlBuilder.addQ("q");
+        urlBuilder.addCountry(country);
 
-        return NewsAPIUrlBuilder();
+        return handleRequest(urlBuilder);
     }
 
     private NewsResponse handleRequest(NewsAPIUrlBuilder urlBuilder) throws NewsApiException {
-        urlBuilder.addPageSize("100");
-        urlBuilder.add("apiKey", apiKey); //wie mach ich das wenn api key final ist?
+        //urlBuilder.pageSize("100");
 
         Request request = new Request.Builder().url(urlBuilder.build()).build();
         Gson gson = new Gson();
@@ -185,3 +174,4 @@ public class NewsApi {
         }
         return true;
     }
+}

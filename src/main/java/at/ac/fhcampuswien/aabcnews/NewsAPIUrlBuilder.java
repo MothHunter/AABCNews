@@ -1,6 +1,8 @@
 package at.ac.fhcampuswien.aabcnews;
 
-public class NewsAPIUrlBuilder {
+import java.util.List;
+
+public class NewsAPIUrlBuilder extends NewsResponse {
 /*
 1.) Variablen erstellen
  */
@@ -98,4 +100,6 @@ final ist unveränderbar.
 
         return url;
     }
+
+
 }
